@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>A Game of Snake Clone</title>
+  <style>
+    #gamescreen {
+      border: 1px solid black;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="gamescreen" width="300" height="300"></canvas>
+  <script>
+
+    // for debugging
+    var LIMIT = 500;
+    var run_count=0;
+    var interval_id;
+
+    var x = 50;
+    var y = 250;
+    var step = 10;
+    var direction;
+    var apple_position_x;
+    var apple_position_y;
+    var size = 1;
+    var snake = new Array();
+
+    var gamescreen = document.getElementById('gamescreen');
+    var gamescreen_height = gamescreen.height;
+    var gamescreen_width = gamescreen.width;
+    var ctx = gamescreen.getContext('2d');
+
+    var SEGMENT_WIDTH = 10;
+    var SEGMENT_HEIGHT = 10;
+
+    function isWallCollision() {
+      return false;
+    }
+
+    function isSelfCollision() {
+      var head = snake[0];
+      var tail = snake.slice(1,snake.length);
+
+      tail.forEach(function(segment) {
+        if(segment.x === head.x && segment.y === head.y) {
+          return true;
+        }
+      });
+      return false;
+    }
+
+    function gameOver() {
+      clearInterval(interval_id);
+      alert('You is dead! Size: ' + size);
+    }
+
+    function isAppleEaten() {
+      if (x === apple_position_x && y === apple_position_y) {
+        return true;
+      }
+      return false;
+    }
+
+    function moveSnake() {
+      snake.push({'x':x,'y':y});
+      if(isSelfCollision() || isWallCollision()) {
+        console.log('selfCollision');
+        gameOver();
+      }
+      snake.forEach(function(segment) {
+          rect(segment.x,segment.y,SEGMENT_WIDTH,SEGMENT_HEIGHT);
+        });
+      if(isAppleEaten()) {
+          size++;
+          init_apple();
+      } else {
+        snake.shift();
+      }
+    }
+
+    function init_apple() {
+      apple_position_x = getRandomInt(0,gamescreen_width);
+      apple_position_y = getRandomInt(0,gamescreen_height);
+    }
+
+    function checkDirection() {
+        switch(direction) {
+          case 'left':
+            x -= step;
+            break;
+          case 'up':
+            y -= step;
+            break;
+          case 'right':
+            x += step;
+            break;
+          case 'down':
+            y += step;
+            break;
+          default:
+            y -= step;
+        }
+    }
+
+    function onKeyDown(evt) {
+      switch(evt.keyCode) {
+        // left
+        case 37:
+          direction = 'left';
+          break;
+        // up
+        case 38:
+          direction = 'up';
+          break;
+        // right
+        case 39:
+          direction = 'right';
+          break;
+        // down
+        case 40:
+          direction = 'down';
+          break;
+      }
+    }
+
+    function clear() {
+      ctx.clearRect(0,0,gamescreen_width,gamescreen_height);
+    }
+
+    function rect(x,y,width,height) {
+      ctx.beginPath();
+      ctx.rect(x,y,width,height);
+      ctx.closePath();
+      ctx.fill();
+    }
+
+    function draw() {
+      run_count++;
+      if(LIMIT !== 0 && run_count > LIMIT) {
+        clearInterval(interval_id);
+      }
+      checkDirection()
+      clear();
+      moveSnake();
+      rect(apple_position_x,apple_position_y,SEGMENT_WIDTH,SEGMENT_HEIGHT);
+    }
+
+    function getRandomInt(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(((Math.random() * (max - min +1)) + min)/10)*10;
+    }
+
+    function init() {
+      init_apple();
+      interval_id = setInterval(draw, 100);
+    }
+
+    document.addEventListener('keydown', onKeyDown);
+
+    init();
+  </script>
+</body>
+
+</html>
