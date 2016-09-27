@@ -18,7 +18,7 @@
     var run_count=0;
     var interval_id;
 
-    var x = 50;
+    var x = 250;
     var y = 250;
     var step = 10;
     var direction;
@@ -36,24 +36,31 @@
     var SEGMENT_HEIGHT = 10;
 
     function isWallCollision() {
-      return false;
+      if(snake[0].x < gamescreen.getBoundingClientRect().left
+        || gamescreen_width - snake[0].x < step
+        || snake[0].y < gamescreen.getBoundingClientRect().top
+        || gamescreen_height - snake[0].y < step) {
+          console.log(gamescreen_width - snake[0].x);
+          return true;
+        }
+        return false;
     }
 
     function isSelfCollision() {
       var head = snake[0];
+      rect(head.x, head.y, SEGMENT_WIDTH, SEGMENT_HEIGHT);
       var tail = snake.slice(1,snake.length);
-
-      tail.forEach(function(segment) {
-        if(segment.x === head.x && segment.y === head.y) {
+      for(i=0;i<tail.length;i++) {
+        if(tail[i].x === head.x && tail[i].y === head.y) {
           return true;
         }
-      });
+      }
       return false;
     }
 
     function gameOver() {
       clearInterval(interval_id);
-      alert('You is dead! Size: ' + size);
+      console.log('You is dead! Size: ' + size);
     }
 
     function isAppleEaten() {
@@ -64,19 +71,15 @@
     }
 
     function moveSnake() {
-      snake.push({'x':x,'y':y});
-      if(isSelfCollision() || isWallCollision()) {
-        console.log('selfCollision');
-        gameOver();
-      }
       snake.forEach(function(segment) {
           rect(segment.x,segment.y,SEGMENT_WIDTH,SEGMENT_HEIGHT);
         });
+
       if(isAppleEaten()) {
           size++;
           init_apple();
       } else {
-        snake.shift();
+        snake.pop();
       }
     }
 
@@ -100,6 +103,7 @@
             y += step;
             break;
           default:
+            direction = 'up';
             y -= step;
         }
     }
@@ -108,18 +112,22 @@
       switch(evt.keyCode) {
         // left
         case 37:
+          if(direction === 'right') break;
           direction = 'left';
           break;
         // up
         case 38:
+          if(direction === 'down') break;
           direction = 'up';
           break;
         // right
         case 39:
+          if(direction === 'left') return;
           direction = 'right';
           break;
         // down
         case 40:
+          if(direction === 'up') break;
           direction = 'down';
           break;
       }
@@ -142,6 +150,10 @@
         clearInterval(interval_id);
       }
       checkDirection()
+      snake.unshift({'x':x,'y':y});
+      if(isSelfCollision() || isWallCollision()) {
+        gameOver();
+      }
       clear();
       moveSnake();
       rect(apple_position_x,apple_position_y,SEGMENT_WIDTH,SEGMENT_HEIGHT);
@@ -155,7 +167,7 @@
 
     function init() {
       init_apple();
-      interval_id = setInterval(draw, 100);
+      interval_id = setInterval(draw, 500);
     }
 
     document.addEventListener('keydown', onKeyDown);
