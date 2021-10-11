@@ -27,20 +27,15 @@
 <div id="startscreen">
   <img id="titleimage" src="https://cdn-icons.flaticon.com/png/512/3975/premium/3975426.png?token=exp=1633699285~hmac=0a80efb5de5621c5a7e5daf91429c882">
     <div id="button">
-      <button id="easy" onclick="timeout = 300; easy = true; startGame()">easy</button>
-      <button id="medium" onclick="timeout = 200; medium = true; startGame()">medium</button>
-      <button id="hard" onclick="timeout = 150; hard = true; startGame()">hard Hell Yeah!!!</button>
+      <button id="easy" onclick="timeout = 300; hardness = 1; startGame()">easy</button>
+      <button id="medium" onclick="timeout = 200; hardness = 2; startGame()">medium</button>
+      <button id="hard" onclick="timeout = 150; hardness = 3; startGame()">hard Hell Yeah!!!</button>
     </div>
 </div>
 <div id="canvascontainer">
 </div>
   <script>
-
-    // for debugging
-    let LIMIT = 500;
-    let run_count=0;
-    let interval_id;
-
+    
     let starting_x = 300;
     let starting_y = 300;
     let step = 10;
@@ -48,11 +43,9 @@
     let apple_position_x;
     let apple_position_y;
     let size = 1;
-    let snake = new Array();
+    let snake = [];
     let timeout;
-    let easy = false;
-    let medium = false;
-    let hard = false;
+    let hardness;
 
     let startscreen = document.getElementById("startscreen");
     let gamescreen;
@@ -76,76 +69,79 @@
     }
     
     function gameOver() {
-      clearInterval(interval_id);
       document.location.reload();
       alert ('You is dead! Size: ' + size);
       }
     
     function adjustSpeedBySize(){
-      if (easy === true) {
-        switch (size) {
-          case 50:
-            timeout = 280;
-            return timeout;
-          case 100:
-            timeout = 260;
-            return timeout;
-          case 150:
-            timeout = 240;
-            return timeout;
-          case 200:
-            timeout = 220;
-            return timeout;
-          case 250:
-            timeout = 200;
-            return timeout;
+      
+      switch (hardness) {
+        //easy
+        case 1: {
+          switch (size) {
+            case 50:
+              timeout = 280;
+              return timeout;
+            case 100:
+              timeout = 260;
+              return timeout;
+            case 150:
+              timeout = 240;
+              return timeout;
+            case 200:
+              timeout = 220;
+              return timeout;
+            case 250:
+              timeout = 200;
+              return timeout;
+          } break;
         }
-        
-      } else if (medium === true) {
-        switch (size) {
-          case 50:
-            timeout = 180;
-            return timeout;
-          case 100:
-            timeout = 160;
-            return timeout;
-          case 150:
-            timeout = 140;
-            return timeout;
-          case 200:
-            timeout = 120;
-            return timeout;
-          case 250:
-            timeout = 100;
-            return timeout;
-        }
-        
-      } else if (hard === true) {
-        switch (size) {
-          case 50:
-            timeout = 130;
-            return timeout;
-          case 100:
-            timeout = 110;
-            return timeout;
-          case 150:
-            timeout = 90;
-            return timeout;
-          case 200:
-            timeout = 70;
-            return timeout;
-          case 250:
-            timeout = 50;
-            return timeout;
+        //medium
+        case 2: {
+          switch (size) {
+            case 50:
+              timeout = 180;
+              return timeout;
+            case 100:
+              timeout = 160;
+              return timeout;
+            case 150:
+              timeout = 140;
+              return timeout;
+            case 200:
+              timeout = 120;
+              return timeout;
+            case 250:
+              timeout = 100;
+              return timeout;
+          } break;
+        } 
+        //hard
+        case 3: {
+          switch (size) {
+            case 50:
+              timeout = 130;
+              return timeout;
+            case 100:
+              timeout = 110;
+              return timeout;
+            case 150:
+              timeout = 90;
+              return timeout;
+            case 200:
+              timeout = 70;
+              return timeout;
+            case 250:
+              timeout = 50;
+              return timeout;
+          } break;
         }
       }
-    } 
+    }
     
     function isAppleEaten() {
-      if (starting_x === apple_position_x && starting_y === apple_position_y) {
-        return true;
-      }
-      return false;
+      return starting_x === apple_position_x && starting_y === apple_position_y;
+      
     }
 
     function moveSnake() {
@@ -230,11 +226,6 @@
       
       setTimeout(function onTick() {
         document.addEventListener('keydown', onKeyDown);
-        run_count++;
-        if (LIMIT !== 0 && run_count > LIMIT) {
-          clearInterval(interval_id);
-        }
-        
         checkDirection()
         snake.unshift({'x': starting_x, 'y': starting_y});
         clear();
