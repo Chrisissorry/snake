@@ -27,9 +27,9 @@
 <div id="startscreen">
   <img id="titleimage" src="https://cdn-icons.flaticon.com/png/512/3975/premium/3975426.png?token=exp=1633699285~hmac=0a80efb5de5621c5a7e5daf91429c882">
     <div id="button">
-      <button onclick="easy()">easy</button>
-      <button onclick="medium()">medium</button>
-      <button onclick="hard()">hard Hell Yeah!!!</button>
+      <button id="easy" onclick="speed = 300; easy = true; startGame()">easy</button>
+      <button id="medium" onclick="speed = 200; medium = true; startGame()">medium</button>
+      <button id="hard" onclick="speed = 150; hard = true; startGame()">hard Hell Yeah!!!</button>
     </div>
 </div>
 <div id="canvascontainer">
@@ -37,31 +37,34 @@
   <script>
 
     // for debugging
-    var LIMIT = 500;
-    var run_count=0;
-    var interval_id;
+    let LIMIT = 500;
+    let run_count=0;
+    let interval_id;
 
-    var starting_x = 300;
-    var starting_y = 300;
-    var step = 10;
-    var direction;
-    var apple_position_x;
-    var apple_position_y;
-    var size = 1;
-    var snake = new Array();
-    var speed;
+    let starting_x = 300;
+    let starting_y = 300;
+    let step = 10;
+    let direction;
+    let apple_position_x;
+    let apple_position_y;
+    let size = 1;
+    let snake = new Array();
+    let speed;
+    let easy = false;
+    let medium = false;
+    let hard = false;
 
-    var startscreen = document.getElementById("startscreen");
-    var gamescreen;
-    var gamescreen_height;
-    var gamescreen_width;
-    var ctx;
+    let startscreen = document.getElementById("startscreen");
+    let gamescreen;
+    let gamescreen_height;
+    let gamescreen_width;
+    let ctx;
 
-    var SEGMENT_WIDTH = 10;
-    var SEGMENT_HEIGHT = 10;
+    let SEGMENT_WIDTH = 10;
+    let SEGMENT_HEIGHT = 10;
     
     
-    function has_game_ended() {
+    function has_Game_Ended() {
       for (let i = 1; i < snake.length; i++) {
         if (snake[i].x === snake[0].x && snake[i].y === snake[0].y) return true;
       }
@@ -78,19 +81,30 @@
       alert ('You is dead! Size: ' + size);
       }
     
-    function getSpeed(){
-      if (size === 50) {
-        speed = speed - 30;
-      } else if (size === 100) {
-        speed = speed - 20;
-      } else if (size === 150) {
-        speed = speed - 20;
-      } else if (size === 200) {
-        speed = speed - 20;
-      } else if (size === 300) {
-        speed = speed - 10;
-      } 
-    }
+    function adjustSpeedBySize(){
+      switch (size) {
+        case 50:
+          speed =  - 20;
+          return speed;
+          break;
+        case 100:
+          speed =  - 20;
+          return speed;
+          break;
+        case 150:
+          speed =  - 20;
+          return speed;
+          break;
+        case 200:
+          speed =  - 20;
+          return speed;
+          break;
+        case 250:
+          speed =  - 20;
+          return speed;
+          break;
+      }
+    } 
     
     function isAppleEaten() {
       if (starting_x === apple_position_x && starting_y === apple_position_y) {
@@ -107,13 +121,15 @@
       if(isAppleEaten()) {
           size++;
           init_apple();
-          getSpeed();
+          adjustSpeedBySize();
       } else {
         snake.pop();
       }
     }
 
     function init_apple() {
+      console.log(speed);
+      console.log(size);
       apple_position_x = getRandomInt(0,gamescreen_width);
       apple_position_y = getRandomInt(0,gamescreen_height);
     }
@@ -175,15 +191,17 @@
     }
 
     function draw() {
-      if (has_game_ended()) {
+      if (has_Game_Ended()) {
         gameOver();
       }
+      
       setTimeout(function onTick() {
         document.addEventListener('keydown', onKeyDown);
         run_count++;
         if (LIMIT !== 0 && run_count > LIMIT) {
           clearInterval(interval_id);
         }
+        
         checkDirection()
         snake.unshift({'x': starting_x, 'y': starting_y});
         clear();
@@ -209,10 +227,9 @@
       div.appendChild(canvas);
     }
     
-    function easy(){
+    function startGame () {
       startscreen.remove();
       loadCanvas();
-      speed = 300;
       gamescreen = document.getElementById("gamescreen");
       gamescreen_height = gamescreen.height;
       gamescreen_width = gamescreen.width;
@@ -220,31 +237,7 @@
       init_apple();
       draw();
     }
-
-    function medium(){
-      startscreen.remove();
-      loadCanvas();
-      speed = 200;
-      gamescreen = document.getElementById("gamescreen");
-      gamescreen_height = gamescreen.height;
-      gamescreen_width = gamescreen.width;
-      ctx = gamescreen.getContext("2d");
-      init_apple();
-      draw();
-    }
-
-    function hard(){
-      startscreen.remove();
-      loadCanvas();
-      speed = 150;
-      gamescreen = document.getElementById("gamescreen");
-      gamescreen_height = gamescreen.height;
-      gamescreen_width = gamescreen.width;
-      ctx = gamescreen.getContext("2d");
-      init_apple();
-      draw();
-    }
-            
+    
   </script>
 </body>
 
