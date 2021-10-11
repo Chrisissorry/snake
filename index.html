@@ -46,7 +46,7 @@
     let snake = [];
     let timeout;
     let hardness;
-
+    
     let startscreen = document.getElementById("startscreen");
     let gamescreen;
     let gamescreen_height;
@@ -140,8 +140,7 @@
     }
     
     function isAppleEaten() {
-      return starting_x === apple_position_x && starting_y === apple_position_y;
-      
+      return starting_x === apple_position_x && starting_y === apple_position_y
     }
 
     function moveSnake() {
