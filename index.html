@@ -3,30 +3,37 @@
 <head>
 <title>A Game of Snake Clone</title>
   <style>
-    #gamescreen {
-      border: 1px solid black;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      visibility: hidden;
-    }
     #button {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      font-size: 3em;
+    }
+    #canvascontainer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    #startscreen{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
     }
   </style>
 </head>
 
 <body>
-<div id="button">
-  <button onclick="easy()">easy</button>
-  <button onclick="medium()">medium</button>
-  <button onclick="hard()">hard Hell Yeah!!!</button>
+
+<div id="startscreen">
+  <img id="titleimage" src="https://cdn-icons.flaticon.com/png/512/3975/premium/3975426.png?token=exp=1633699285~hmac=0a80efb5de5621c5a7e5daf91429c882">
+    <div id="button">
+      <button onclick="easy()">easy</button>
+      <button onclick="medium()">medium</button>
+      <button onclick="hard()">hard Hell Yeah!!!</button>
+    </div>
 </div>
-  <canvas id="gamescreen" width="600" height="600"></canvas>
+<div id="canvascontainer">
+</div>
   <script>
 
     // for debugging
@@ -43,16 +50,17 @@
     var size = 1;
     var snake = new Array();
     var speed;
-    
-    var gamescreen = document.getElementById('gamescreen');
-    var gamescreen_height = gamescreen.height;
-    var gamescreen_width = gamescreen.width;
-    var ctx = gamescreen.getContext('2d');
+
+    var startscreen = document.getElementById("startscreen");
+    var gamescreen;
+    var gamescreen_height;
+    var gamescreen_width;
+    var ctx;
 
     var SEGMENT_WIDTH = 10;
     var SEGMENT_HEIGHT = 10;
     
-
+    
     function has_game_ended() {
       for (let i = 1; i < snake.length; i++) {
         if (snake[i].x === snake[0].x && snake[i].y === snake[0].y) return true;
@@ -193,34 +201,52 @@
       return Math.floor(((Math.random() * (max - min +1)) + min)/10)*10;
     }
 
-    function init() {
-      init_apple();
+    function loadCanvas() {
+      var canvas = document.createElement("canvas");
+      div = document.getElementById("canvascontainer");
+      canvas.id = "gamescreen";
+      canvas.width = 600;
+      canvas.height = 600;
+      canvas.style.border = "1px solid";
+      div.appendChild(canvas);
     }
     
     function easy(){
+      startscreen.remove();
+      loadCanvas();
       speed = 300;
-      init();
+      gamescreen = document.getElementById("gamescreen");
+      gamescreen_height = gamescreen.height;
+      gamescreen_width = gamescreen.width;
+      ctx = gamescreen.getContext("2d");
+      init_apple();
       draw();
-      document.getElementById("button").style.visibility = "hidden";
-      document.getElementById("gamescreen").style.visibility = "visible";
     }
 
     function medium(){
+      startscreen.remove();
+      loadCanvas();
       speed = 200;
-      init();
+      gamescreen = document.getElementById("gamescreen");
+      gamescreen_height = gamescreen.height;
+      gamescreen_width = gamescreen.width;
+      ctx = gamescreen.getContext("2d");
+      init_apple();
       draw();
-      document.getElementById("button").style.visibility = "hidden";
-      document.getElementById("gamescreen").style.visibility = "visible";
     }
 
     function hard(){
+      startscreen.remove();
+      loadCanvas();
       speed = 150;
-      init();
+      gamescreen = document.getElementById("gamescreen");
+      gamescreen_height = gamescreen.height;
+      gamescreen_width = gamescreen.width;
+      ctx = gamescreen.getContext("2d");
+      init_apple();
       draw();
-      document.getElementById("button").style.visibility = "hidden";
-      document.getElementById("gamescreen").style.visibility = "visible";
     }
-    
+            
   </script>
 </body>
 
