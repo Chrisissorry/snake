@@ -1,0 +1,19 @@
+﻿body {
+    overflow: hidden;
+}
+#button {
+    font-size: 3em;
+}
+#canvascontainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+#startscreen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
