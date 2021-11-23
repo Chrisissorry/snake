@@ -8,7 +8,7 @@
             {X: 190, Y: 200},
             {X: 180, Y: 200},
         ];
-        this.changing_direction = false;
+        this.changingDirection = false;
     }
         
     get length() {
@@ -21,8 +21,8 @@
     }
         
     checkDirection(event) {
-        if (this.changing_direction) return;
-        this.changing_direction = true;
+        if (this.changingDirection) return;
+        this.changingDirection = true;
         this.keyPressed = event;
         this.goingUp = this.dy === -10;
         this.goingDown = this.dy === 10;
@@ -59,8 +59,6 @@
                 return;
         }
     }
-    
-    
 }
 
    
