@@ -82,7 +82,7 @@ describe("Function checkDirection", () => {
         snake.dx = 0;
         snake.dy = 10;
         snake.checkDirection(37);
-        expect(snake.changing_direction).toBeTruthy();
+        expect(snake.changingDirection).toBeTruthy();
     })
 
     test("Changing_direction works", () => {
@@ -91,7 +91,7 @@ describe("Function checkDirection", () => {
         snake.dx = 0;
         snake.dy = 10;
         snake.checkDirection(37);
-        expect(snake.changing_direction).toBeTruthy();
+        expect(snake.changingDirection).toBeTruthy();
     })
 
     test("Snake cant revert", () => {
