@@ -18,7 +18,7 @@ describe("Function randomFood", () => {
         jest.retryTimes(100);
         jest.spyOn(apple, "randomFood")
         apple.randomFood(100, 200);
-        expect(apple.randomApple).toBeGreaterThan(100)
-        expect(apple.randomApple).toBeLessThan(200)
+        expect(apple.randomApple).toBeGreaterThanOrEqual(100)
+        expect(apple.randomApple).toBeLessThanOrEqual(200)
     })
 })
