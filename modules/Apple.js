@@ -1,22 +1,19 @@
-﻿import {Snake} from "./Snake";
+﻿export class Apple {
 
-const snake = new Snake()
-
-export class Apple {
-    constructor() {
-        this.randomApple = 90;
-    }
-    randomFood(min, max) {
-        this.randomApple = Math.round((Math.random() * (max-min) + min) / 10) * 10;
+    constructor(maxPositionX, maxPositionY) {
+        this.positionX = maxPositionX;
+        this.positionY = maxPositionY;
     }
 
-   /* genFood() {
-        this.food_x = this.randomFood(0, snakeboard.width - 10);
-        this.food_y = this.randomFood(0, snakeboard.height - 10);
-        snake.body.forEach(function has_snake_eaten_food(part) {
-            this.hasEaten = part.x === this.food_x && part.y === this.food_y;
-            
-            
-        });
-    }*/
+    initApple() {
+        this.applePositionX = this.getRandomInt(0, this.positionX);
+        this.applePositionY = this.getRandomInt(0, this.positionY);
+        return [this.applePositionX, this.applePositionY];
+    }
+
+    getRandomInt(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(((Math.random() * (max - min + 1)) + min) / 10) * 10;
+    }
 }
