@@ -39,7 +39,7 @@ function startGame (time, difficult) {
     gameScreenHeight = gameScreen.height;
     gameScreenWidth = gameScreen.width;
     ctx = gameScreen.getContext("2d");
-    const apple = new Apple(gameScreenWidth,gameScreenHeight);
+    const apple = new Apple(gameScreenWidth,gameScreenHeight, body);
     apple.initApple();
     applePositionX = apple.applePositionX;
     applePositionY = apple.applePositionY;
@@ -79,7 +79,7 @@ function draw() {
 
 function onKeyDown(evt) {
     let keyCode = evt.keyCode;
-    const changeDirection = new ChangeDirection(keyCode, direction);
+    const changeDirection = new ChangeDirection(keyCode, direction, body);
     changeDirection.changeDirection();
     direction = changeDirection.direction;    
 }

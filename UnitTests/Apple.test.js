@@ -2,8 +2,14 @@
 
 describe("Function Init Apple", () => {
     
-    const apple = new Apple(600, 600);
-    jest.retryTimes(20)
+    const apple = new Apple(600, 600, [
+        {x: 200, y: 200},
+        {x: 190, y: 200},
+        {x: 180, y: 200},
+        {x: 170, y: 200},
+        {x: 160, y: 200}]);
+    
+    jest.retryTimes(50);
     
     test("Position is in the game field", () => {
         
