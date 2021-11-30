@@ -59,7 +59,7 @@ function loadCanvas() {
 
 function draw() {
     const hasGameEnded = new HasGameEnded(body, gameScreenWidth, gameScreenHeight);
-    if (hasGameEnded.hasGameEnded()) {
+    if (hasGameEnded.hasGameEnded() || points === 36000) {
         gameOver();
     }
 

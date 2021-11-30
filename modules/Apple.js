@@ -10,7 +10,7 @@
         this.applePositionX = this.getRandomInt(0, this.positionX);
         this.applePositionY = this.getRandomInt(0, this.positionY);
         if (this.body.x === this.applePositionX && this.body.y === this.applePositionY) {
-            return this.initApple();
+            this.initApple();
         }
         return [this.applePositionX, this.applePositionY];
     }
