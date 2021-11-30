@@ -1,6 +1,8 @@
 ﻿import {Apple} from "./modules/Apple.js";
-
 import {Snake} from "./modules/Snake.js";
+import {SpeedAdjust} from "./modules/Speedadjust.js";
+import {HasGameEnded} from "./modules/HasGameEnded.js";
+import {ChangeDirection} from "./modules/ChangeDirection.js";
 
 document.getElementById("easy").addEventListener("click", function(){startGame(250, 1)});
 document.getElementById("medium").addEventListener("click", function(){startGame(200, 2)});
@@ -37,7 +39,7 @@ function startGame (time, difficult) {
     gameScreenHeight = gameScreen.height;
     gameScreenWidth = gameScreen.width;
     ctx = gameScreen.getContext("2d");
-    const apple = new Apple(gameScreenWidth,gameScreenHeight)
+    const apple = new Apple(gameScreenWidth,gameScreenHeight);
     apple.initApple();
     applePositionX = apple.applePositionX;
     applePositionY = apple.applePositionY;
@@ -56,12 +58,13 @@ function loadCanvas() {
 }
 
 function draw() {
-    if (hasGameEnded()) {
+    const hasGameEnded = new HasGameEnded(body, gameScreenWidth, gameScreenHeight);
+    if (hasGameEnded.hasGameEnded()) {
         gameOver();
     }
 
     setTimeout(function onTick() {
-        const snake = new Snake(direction, dx, dy)
+        const snake = new Snake(direction, dx, dy);
         document.addEventListener('keydown', onKeyDown);
         snake.checkDirection();
         dx = snake.dx;
@@ -75,39 +78,10 @@ function draw() {
 }
 
 function onKeyDown(evt) {
-    switch(evt.keyCode) {
-        // left
-        case 37:
-            if(direction === 'right') break;
-            direction = 'left';
-            return;
-        // up
-        case 38:
-            if(direction === 'down') break;
-            direction = 'up';
-            return;
-        // right
-        case 39:
-            if(direction === 'left') break;
-            direction = 'right';
-            return;
-        // down
-        case 40:
-            if(direction === 'up') break;
-            direction = 'down';
-            return;
-    }
-}
-
-function hasGameEnded() {
-    for (let i = 1; i < body.length; i++) {
-        if (body[i].x === body[0].x && body[i].y === body[0].y) return true;
-    }
-    const hitLeftWall = body[0].x < 0;
-    const hitRightWall = body[0].x > gameScreenWidth - 10;
-    const hitTopWall = body[0].y < 0;
-    const hitBottomWall = body[0].y > gameScreenHeight - 10;
-    return hitLeftWall || hitRightWall || hitTopWall || hitBottomWall;
+    let keyCode = evt.keyCode;
+    const changeDirection = new ChangeDirection(keyCode, direction);
+    changeDirection.changeDirection();
+    direction = changeDirection.direction;    
 }
 
 function gameOver() {
@@ -122,10 +96,12 @@ function clear() {
 function moveSnake() {
     let head = {x: body[0].x + dx, y: body[0].y + dy};
     body.unshift(head);
-    const apple = new Apple(gameScreenWidth, gameScreenHeight)
+    const apple = new Apple(gameScreenWidth, gameScreenHeight);
     const hasEatenFood = body[0].x === applePositionX && body[0].y === applePositionY;
     if (hasEatenFood) {
-        adjustSpeedBySize();
+        const speedAdjust = new SpeedAdjust(difficulty, timeout);
+        speedAdjust.adjustSpeedBySize();
+        timeout = speedAdjust.timeout;
         apple.initApple();
         applePositionX = apple.applePositionX;
         applePositionY = apple.applePositionY;
@@ -142,38 +118,8 @@ function rect(x,y,width,height) {
     ctx.fill();
 }
 
-function adjustSpeedBySize() {
-
-    switch (difficulty) {
-        //easy
-        case 1: {
-            if (timeout > 150) {
-                --timeout;
-                return timeout;
-            }
-            break;
-        }
-        //medium
-        case 2: {
-            if (timeout > 100) {
-                --timeout;
-                return timeout;
-            }
-            break;
-        }
-        //hard
-        case 3: {
-            if (timeout > 50) {
-                --timeout;
-                return timeout;
-            }
-            break;
-        }
-    }
-}
-
 function drawSnake() {
-    body.forEach(drawSnakePart)
+    body.forEach(drawSnakePart);
 }
 
 function drawSnakePart(snakePart) {

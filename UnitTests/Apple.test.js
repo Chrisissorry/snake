@@ -1,11 +1,12 @@
 ﻿import {Apple} from "../modules/Apple";
 
-describe("Init Apple", () => {
+describe("Function Init Apple", () => {
     
     const apple = new Apple(600, 600);
+    jest.retryTimes(20)
     
     test("Position is in the game field", () => {
-        jest.retryTimes(1000);
+        
         apple.initApple();
         expect(apple.applePositionX).toBeGreaterThanOrEqual(0);
         expect(apple.applePositionX).toBeLessThanOrEqual(600);
@@ -14,7 +15,7 @@ describe("Init Apple", () => {
     });
     
     test("position is not above the game field", () => {
-        jest.retryTimes(1000);
+        
         apple.initApple();
         expect(apple.applePositionX).not.toBeGreaterThan(600);
         expect(apple.applePositionX).not.toBeLessThan(0);
