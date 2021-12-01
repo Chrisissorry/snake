@@ -96,7 +96,7 @@ function clear() {
 function moveSnake() {
     let head = {x: body[0].x + dx, y: body[0].y + dy};
     body.unshift(head);
-    const apple = new Apple(gameScreenWidth, gameScreenHeight);
+    const apple = new Apple(gameScreenWidth, gameScreenHeight, body);
     const hasEatenFood = body[0].x === applePositionX && body[0].y === applePositionY;
     if (hasEatenFood) {
         const speedAdjust = new SpeedAdjust(difficulty, timeout);
