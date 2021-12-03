@@ -39,7 +39,7 @@ function startGame (time, difficult) {
     gameScreenHeight = gameScreen.height;
     gameScreenWidth = gameScreen.width;
     ctx = gameScreen.getContext("2d");
-    const apple = new Apple(gameScreenWidth,gameScreenHeight, body);
+    const apple = new Apple(gameScreenWidth, gameScreenHeight, body);
     apple.initApple();
     applePositionX = apple.applePositionX;
     applePositionY = apple.applePositionY;
@@ -59,7 +59,7 @@ function loadCanvas() {
 
 function draw() {
     const hasGameEnded = new HasGameEnded(body, gameScreenWidth, gameScreenHeight);
-    if (hasGameEnded.hasGameEnded() || points === 36000) {
+    if (hasGameEnded.hasGameEnded() || points === 35950) {
         gameOver();
     }
 
@@ -96,12 +96,12 @@ function clear() {
 function moveSnake() {
     let head = {x: body[0].x + dx, y: body[0].y + dy};
     body.unshift(head);
-    const apple = new Apple(gameScreenWidth, gameScreenHeight, body);
     const hasEatenFood = body[0].x === applePositionX && body[0].y === applePositionY;
     if (hasEatenFood) {
         const speedAdjust = new SpeedAdjust(difficulty, timeout);
         speedAdjust.adjustSpeedBySize();
         timeout = speedAdjust.timeout;
+        const apple = new Apple(gameScreenWidth, gameScreenHeight, body);
         apple.initApple();
         applePositionX = apple.applePositionX;
         applePositionY = apple.applePositionY;

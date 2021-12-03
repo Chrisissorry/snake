@@ -1,6 +1,6 @@
 .tern-project
 .DS_Store
 .idea
-node_modules
-Roadmap.txt
-/coverage/
+/node_modules/
+/yarn-error.log
+coverage
