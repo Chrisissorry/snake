@@ -1,37 +1,33 @@
 ﻿export class Apple {
-
-    constructor(maxPositionX, maxPositionY, body) {
-        this.positionX = maxPositionX;
-        this.positionY = maxPositionY;
-        this.body = body;
+    constructor(maxPositionX, maxPositionY, snakeBody) {
+        this.positionX = 0;
+        this.positionY = 0;
+        this.maxPositionX = maxPositionX;
+        this.maxPositionY = maxPositionY;
+        this.initApple(snakeBody);
     }
 
-    initApple() {
+    initApple(snakeBody) {
         do {
-            this.onSnakeSegment = false;
-            this.applePositionX = this.getRandomInt(0, this.positionX);
-            this.applePositionY = this.getRandomInt(0, this.positionY);
-            this.onSnake();
-        } while (this.onSnakeSegment)
-        return [this.applePositionX, this.applePositionY]
-    } 
+            this.positionX = this.getRandomInt(0, this.maxPositionX);
+            this.positionY = this.getRandomInt(0, this.maxPositionY);
+            this.onSnake(snakeBody);
+        } while (this.onSnake(snakeBody))
+    }
 
     getRandomInt(min, max) {
         min = Math.ceil(min);
         max = Math.floor(max);
         return Math.floor(((Math.random() * (max - min + 1)) + min) / 10) * 10;
     }
-    onSnake() {
-        this.applePosition = {x: this.applePositionX, y: this.applePositionY};
-        this.i = this.body.length + 1
-        for (this.i; this.i > 0; this.i--){
-            this.segment = this.body.shift();
-            if (this.segment.x === this.applePosition.x && this.segment.y === this.applePosition.y) {
-                this.onSnakeSegment = true;
-                this.body.push(this.segment);
-                break;                
+
+    onSnake(body) {
+        body.forEach(segment => {
+            if (segment.x === this.positionX && segment.y === this.positionY) {
+                return true;
             }
-            this.body.push(this.segment);
-        }
+
+            return false;
+        });
     }
 }

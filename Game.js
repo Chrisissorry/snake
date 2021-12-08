@@ -40,10 +40,7 @@ function startGame (time, difficult) {
     gameScreenWidth = gameScreen.width;
     ctx = gameScreen.getContext("2d");
     const apple = new Apple(gameScreenWidth, gameScreenHeight, body);
-    apple.initApple();
-    applePositionX = apple.applePositionX;
-    applePositionY = apple.applePositionY;
-    rect(applePositionX, applePositionY, 10, 10);
+    rect(apple.positionX, apple.positionY, 10, 10);
     draw();
 }
 
@@ -81,7 +78,7 @@ function onKeyDown(evt) {
     let keyCode = evt.keyCode;
     const changeDirection = new ChangeDirection(keyCode, direction, body);
     changeDirection.changeDirection();
-    direction = changeDirection.direction;    
+    direction = changeDirection.direction;
 }
 
 function gameOver() {
@@ -102,7 +99,6 @@ function moveSnake() {
         speedAdjust.adjustSpeedBySize();
         timeout = speedAdjust.timeout;
         const apple = new Apple(gameScreenWidth, gameScreenHeight, body);
-        apple.initApple();
         applePositionX = apple.applePositionX;
         applePositionY = apple.applePositionY;
         points = points + 10;
