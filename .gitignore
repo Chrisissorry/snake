@@ -4,3 +4,7 @@
 /node_modules/
 /yarn-error.log
 coverage
+package.json
+yarn.lock
+babel.config.js
+package-lock.json

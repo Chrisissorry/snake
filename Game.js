@@ -53,7 +53,8 @@ function loadCanvas() {
     canvas.id = "gameScreen";
     canvas.width = 600;
     canvas.height = 600;
-    canvas.style.border = "1px solid";
+    canvas.style.border = "3px solid #ff0000";
+    canvas.style.backgroundColor = "#f7f7f7";
     div.appendChild(canvas);
 }
 
@@ -125,5 +126,7 @@ function drawSnake() {
 function drawSnakePart(snakePart) {
     ctx.fillRect(snakePart.x, snakePart.y, 10, 10);
     ctx.strokeRect(snakePart.x, snakePart.y, 10, 10);
+    ctx.fillStyle = "green";
+    ctx.strokestyle =  "black";
 }
 
