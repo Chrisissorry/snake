@@ -1,4 +1,4 @@
-﻿import {HasGameEnded} from "../modules/hasGameEnded";
+﻿import {HasGameEnded} from "../modules/HasGameEnded";
 
 describe("function hasGameEnded", () => {
     
