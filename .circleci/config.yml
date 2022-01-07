@@ -2,17 +2,29 @@ version: 2.1
 
 orbs:
   node: circleci/node@4.7
-  
+
 jobs:
   lint:
-    docker:
-      - image: cimg/node:lts
+    executor: docker-note
     steps:
       - checkout
       - run: yarn install
-      - run: yarn run eslint "**/*.js"    
+      - run: yarn run eslint "**/*.js"
+
+  ui-tests:
+    executor: docker-note
+    steps:
+      - checkout
+      - run: yarn install
+      - run: yarn test
 
 workflows:
   snake_pipeline:
     jobs:
       - lint
+      - ui-tests
+
+executors:
+  docker-note:
+    docker:
+      - image: cimg/node:lts
