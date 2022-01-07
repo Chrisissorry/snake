@@ -38,7 +38,7 @@ export default class Snake {
         }
         break;
       default:
-        this.checkDirection();
+        break;
     }
   }
 }

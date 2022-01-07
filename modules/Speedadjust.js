@@ -28,7 +28,7 @@ export default class SpeedAdjust {
         break;
       }
       default:
-        this.adjustSpeedBySize();
+        break;
     }
   }
 }

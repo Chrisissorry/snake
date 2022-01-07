@@ -10,24 +10,23 @@ export default class ChangeDirection {
       case 37:
         if (this.direction === 'right') break;
         this.direction = 'left';
-        return;
+        break;
         // up
       case 38:
         if (this.direction === 'down') break;
         this.direction = 'up';
-        return;
+        break;
         // right
       case 39:
         if (this.direction === 'left') break;
         this.direction = 'right';
-        return;
+        break;
         // down
       case 40:
         if (this.direction === 'up') break;
         this.direction = 'down';
-        return;
+        break;
       default:
-        this.changeDirection();
         break;
     }
   }
