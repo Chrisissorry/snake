@@ -1,4 +1,4 @@
-import { HasGameEnded } from '../modules/HasGameEnded';
+import HasGameEnded from '../modules/HasGameEnded';
 
 describe('function hasGameEnded', () => {
   test('hasGameEnded is not returning anything', () => {

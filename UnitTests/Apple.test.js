@@ -1,4 +1,4 @@
-import { Apple } from '../modules/Apple';
+import Apple from '../modules/Apple';
 
 describe('Function Init Apple', () => {
   test('Position is in the game field', () => {

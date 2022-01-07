@@ -1,4 +1,4 @@
-export class ChangeDirection {
+export default class ChangeDirection {
   constructor(keyCode, direction) {
     this.keyCode = keyCode;
     this.direction = direction;
@@ -25,6 +25,10 @@ export class ChangeDirection {
       case 40:
         if (this.direction === 'up') break;
         this.direction = 'down';
+        return;
+      default:
+        this.changeDirection();
+        break;
     }
   }
 }

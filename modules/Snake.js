@@ -1,4 +1,4 @@
-export class Snake {
+export default class Snake {
   constructor(direction, dx, dy) {
     this.direction = direction;
     this.dx = dx;
@@ -15,32 +15,30 @@ export class Snake {
         if (!this.goingLeft) {
           this.dx = 10;
           this.dy = 0;
-          return [this.dx, this.dy];
         }
-        return;
-
+        break;
       case 'down':
         if (!this.goingUp) {
           this.dx = 0;
           this.dy = 10;
-          return [this.dx, this.dy];
         }
-        return;
+        break;
 
       case 'left':
         if (!this.goingRight) {
           this.dx = -10;
           this.dy = 0;
-          return [this.dx, this.dy];
         }
-        return;
+        break;
 
       case 'up':
         if (!this.goingDown) {
           this.dx = 0;
           this.dy = -10;
-          return [this.dx, this.dy];
         }
+        break;
+      default:
+        this.checkDirection();
     }
   }
 }

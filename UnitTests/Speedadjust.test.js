@@ -1,4 +1,4 @@
-import { SpeedAdjust } from '../modules/Speedadjust';
+import SpeedAdjust from '../modules/Speedadjust';
 
 describe('Function SpeedAdjust', () => {
   test('timeout is reduce case 1', () => {

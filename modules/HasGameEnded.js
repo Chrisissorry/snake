@@ -1,4 +1,4 @@
-export class HasGameEnded {
+export default class HasGameEnded {
   constructor(body, gameScreenWidth, gameScreenHeight) {
     this.body = body;
     this.gameScreenWidth = gameScreenWidth;
@@ -6,7 +6,7 @@ export class HasGameEnded {
   }
 
   hasGameEnded() {
-    for (let i = 1; i < this.body.length; i++) {
+    for (let i = 1; i < this.body.length; i += 1) {
       if (this.body[i].x === this.body[0].x && this.body[i].y === this.body[0].y) return true;
     }
     const hitLeftWall = this.body[0].x < 0;

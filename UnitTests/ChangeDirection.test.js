@@ -1,4 +1,4 @@
-import { ChangeDirection } from '../modules/ChangeDirection';
+import ChangeDirection from '../modules/ChangeDirection';
 
 describe('Function changeDirection', () => {
   test('left is working', () => {
@@ -19,6 +19,7 @@ describe('Function changeDirection', () => {
     expect(changeDirection.direction).toBe('right');
   });
 
+  // eslint-disable-next-line jest/no-identical-title
   test('left is working', () => {
     const changeDirection = new ChangeDirection(40, 'right');
     changeDirection.changeDirection();

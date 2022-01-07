@@ -1,4 +1,4 @@
-export class Apple {
+export default class Apple {
   constructor(maxPositionX, maxPositionY, body) {
     this.positionX = maxPositionX;
     this.positionY = maxPositionY;
@@ -16,15 +16,15 @@ export class Apple {
   }
 
   getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(((Math.random() * (max - min + 1)) + min) / 10) * 10;
+    this.min = Math.ceil(min);
+    this.max = Math.floor(max);
+    return Math.floor(((Math.random() * (this.max - this.min + 1)) + this.min) / 10) * 10;
   }
 
   onSnake() {
     this.applePosition = { x: this.applePositionX, y: this.applePositionY };
     this.i = this.body.length + 1;
-    for (this.i; this.i > 0; this.i--) {
+    for (this.i; this.i > 0; this.i -= 1) {
       this.segment = this.body.shift();
       if (this.segment.x === this.applePosition.x && this.segment.y === this.applePosition.y) {
         this.onSnakeSegment = true;

@@ -1,4 +1,4 @@
-import { Snake } from '../modules/Snake';
+import Snake from '../modules/Snake';
 
 describe('function checkDirection', () => {
   test('checkDirection right is working', () => {
