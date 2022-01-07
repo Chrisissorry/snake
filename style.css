@@ -4,13 +4,13 @@
 #button {
     font-size: 3em;
 }
-#canvascontainer {
+#canvasContainer {
     display: flex;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
 }
-#startscreen {
+#startScreen {
     display: flex;
     flex-direction: column;
     align-items: center;
