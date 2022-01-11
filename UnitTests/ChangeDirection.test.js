@@ -19,8 +19,7 @@ describe('Function changeDirection', () => {
     expect(changeDirection.direction).toBe('right');
   });
 
-  // eslint-disable-next-line jest/no-identical-title
-  test('left is working', () => {
+  test('down is working', () => {
     const changeDirection = new ChangeDirection(40, 'right');
     changeDirection.changeDirection();
     expect(changeDirection.direction).toBe('down');
