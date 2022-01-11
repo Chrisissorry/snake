@@ -1,18 +1,44 @@
 version: 2.1
 
-orbs:
-  node: circleci/node@4.7
-  
-jobs:
-  lint:
-    docker:
-      - image: cimg/node:lts
+commands:
+  checkout_and_build:
     steps:
       - checkout
-      - run: yarn install
-      - run: yarn run eslint "**/*.js"    
+      - restore_cache:
+          keys:
+            - node-v1-{{ checksum "./yarn.lock" }}
+            - node-v1-
+            - run:
+                name: yarn
+                command: yarn install
+            - save_cache:
+                key: node-v1-{{ checksum "./yarn.lock" }}
+                paths:
+                  - node_modules
+            - run: yarn install
+
+executors:
+  docker-note:
+    docker:
+      - image: cimg/node:lts
+
+orbs:
+  node: circleci/node@4.7
+
+jobs:
+  lint:
+    executor: docker-note
+    steps:
+      - checkout_and_build
+      - run: yarn run eslint "**/*.js"
+  ui-tests:
+    executor: docker-note
+    steps:
+      - checkout_and_build
+      - run: yarn test
 
 workflows:
   snake_pipeline:
     jobs:
       - lint
+      - ui-tests
