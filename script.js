@@ -7,6 +7,8 @@ let speed = 200;
 let gamescreen = document.getElementById('gamescreen');
 //var x = 250;
 //var y = 250;
+const leftWall = 0;
+const topWall = 0;
 let snakeSpawnX = 600;
 let snakeSpawnY = 600;
 const step = 10;
@@ -26,17 +28,15 @@ const SEGMENT_WIDTH = 10;
 const SEGMENT_HEIGHT = 10;
 
 function isWallCollision() {
-    if(snake[0].x < gamescreen.getBoundingClientRect().left
+    if(snake[0].x < leftWall
         || gamescreen_width - snake[0].x < step
-        || snake[0].y < gamescreen.getBoundingClientRect().top
+        || snake[0].y < topWall
         || gamescreen_height - snake[0].y < step) {
-        console.log(gamescreen_width - snake[0].x);
         deathReason = 'tot durch kollision mit da wand'
         return true;
     }
     return false;
 }
-
 function isSelfCollision() {
     const head = snake[0];
     rectSnake(head.x, head.y, SEGMENT_WIDTH, SEGMENT_HEIGHT);  //function
@@ -53,8 +53,7 @@ function isSelfCollision() {
 function gameOver() {
     clearInterval(interval_id);
     console.log('You is dead! Size: ' + size);
-    console.log(gamescreen.getBoundingClientRect().left, "this is the gamesreen Bounding left") //variante zum debuggen des centered divs
-    window.alert('You Lost! You ate "' + appleCounter + '" Apples.\nThe size of your snake was: ' + size); //+ deathReason );
+    window.alert('You Lost! You ate "' + appleCounter + '" Apples.\nThe size of your snake was: ' + size ); //+ deathReason );
 }
 
 function isAppleEaten() {
@@ -66,13 +65,14 @@ function isAppleEaten() {
 
 function moveSnake() {
     snake.forEach(function(segment) {
+        console.log("horizontal movement " +segment.x);
+
         rectSnake(segment.x,segment.y,SEGMENT_WIDTH,SEGMENT_HEIGHT); //function
     });
 
     if(isAppleEaten()) {
         size++;
         appleCounter++;
-        speed--;
         console.log(speed);
         init_apple();
     } else {
@@ -81,8 +81,8 @@ function moveSnake() {
 }
 
 function init_apple() {
-    apple_position_x = getRandomInt(10,gamescreen_width-10);  //x position des apfels wird generiert durch nen randomgenerator
-    apple_position_y = getRandomInt(10,gamescreen_height-10); //y position des apfels wird generiert durch nen randomgenerator
+    apple_position_x = getRandomInt(0,gamescreen_width);  //x position des apfels wird generiert durch nen randomgenerator
+    apple_position_y = getRandomInt(0,gamescreen_height); //y position des apfels wird generiert durch nen randomgenerator
 }
 
 function checkDirection() { //GLAUBE: deklaration der richtungen
