@@ -100,6 +100,7 @@
       if(isAppleEaten()) {
           size++;
           quantity++;
+          speed--;
           console.log(speed);
           init_apple();
       } else {
@@ -162,20 +163,22 @@
     }
 
     function rectApple(x,y,width,height) {
+      drawBox(x, y, width, height, "red");
+    }
+
+    function rectSnake(x,y,width,height) {
+      drawBox(x, y, width, height, "green");
+    }
+
+    function drawBox(x,y,width,height, color) {
       ctx.beginPath();
-      ctx.fillStyle = "red";
+      ctx.fillStyle = color;
       ctx.rect(x, y, width, height);
       ctx.closePath();
       ctx.fill();
     }
 
-    function rectSnake(x,y,width,height) {
-      ctx.beginPath();
-      ctx.fillStyle = "green";
-      ctx.rect(x, y, width, height);
-      ctx.closePath();
-      ctx.fill();
-    }
+
 
     function draw() {   //draw funktion beinhaltet alles was "gezeichnet" wird -- like apfelposition
       run_count++;
@@ -200,7 +203,7 @@
 
     function init() {
       init_apple();
-      interval_id = setInterval(draw, 200);  //draw ist das zeichenevent, die zahl ist die geschwindigkeit in millisekunden --!10 milisekunden sind viel zu schnell -- 100 milisekunden auf dauer zu schnell!
+      interval_id = setInterval(draw, speed);  //draw ist das zeichenevent, die zahl ist die geschwindigkeit in millisekunden --!10 milisekunden sind viel zu schnell -- 100 milisekunden auf dauer zu schnell!
     }
 
     document.addEventListener('keydown', onKeyDown);  //eventlistener überstetzt den analogen tastendruck als digitales signal
