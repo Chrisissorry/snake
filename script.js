@@ -33,6 +33,7 @@ function isWallCollision() {
         || snake[0].y < topWall
         || gamescreen_height - snake[0].y < step) {
         deathReason = 'tot durch kollision mit da wand'
+        snake.push();
         return true;
     }
     return false;
@@ -44,6 +45,7 @@ function isSelfCollision() {
     for(i=0;i<tail.length;i++) {
         if(tail[i].x === head.x && tail[i].y === head.y) {
             deathReason = 'tot durch schlange';
+            snake.length= snake.length+1;
             return true;
         }
     }
@@ -58,6 +60,12 @@ function gameOver() {
 
 function isAppleEaten() {
     if (snakeSpawnX === apple_position_x && snakeSpawnY === apple_position_y) {
+        clearInterval(interval_id);
+        speed = speed - 2;
+        interval_id = setInterval(draw, speed);
+        if (speed === 50) {
+            speed = 50;
+        }
         return true;
     }
     return false;
@@ -65,8 +73,6 @@ function isAppleEaten() {
 
 function moveSnake() {
     snake.forEach(function(segment) {
-        console.log("horizontal movement " +segment.x);
-
         rectSnake(segment.x,segment.y,SEGMENT_WIDTH,SEGMENT_HEIGHT); //function
     });
 
@@ -161,10 +167,11 @@ function draw() {   //draw funktion beinhaltet alles was "gezeichnet" wird -- li
     snake.unshift({'x': snakeSpawnX,'y': snakeSpawnY});
     if(isSelfCollision() || isWallCollision()) {    //bedingungen für ein game over
         gameOver();
+    } else {
+        clear();
+        moveSnake();
+        rectApple(apple_position_x, apple_position_y, SEGMENT_WIDTH, SEGMENT_HEIGHT); //hier ist der apfel selbst //funktion
     }
-    clear();
-    moveSnake();
-    rectApple(apple_position_x,apple_position_y,SEGMENT_WIDTH,SEGMENT_HEIGHT); //hier ist der apfel selbst //funktion
 }
 
 function getRandomInt(min, max) {
