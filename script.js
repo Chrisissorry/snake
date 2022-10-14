@@ -32,8 +32,7 @@ function isWallCollision() {
         || gamescreen_width - snake[0].x < step
         || snake[0].y < topWall
         || gamescreen_height - snake[0].y < step) {
-        deathReason = 'tot durch kollision mit da wand'
-        snake.push();
+        deathReason = 'death because of wall';
         return true;
     }
     return false;
@@ -44,8 +43,7 @@ function isSelfCollision() {
     let tail = snake.slice(1,snake.length);
     for(i=0;i<tail.length;i++) {
         if(tail[i].x === head.x && tail[i].y === head.y) {
-            deathReason = 'tot durch schlange';
-            snake.length= snake.length+1;
+            deathReason = 'death because of self-eating';
             return true;
         }
     }

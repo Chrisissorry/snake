@@ -1,16 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <link rel="stylesheet" href="styles.css">
-
-<title>A Game of Snake Clone</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="styles.css">
+    <title>Snake</title>
 </head>
-
 <body>
-  <div id="flexBox">
-  <canvas id="gamescreen" width="1200" height="1200"></canvas>
-  </div>
-  <script src="script.js"></script>
+    <div class="flexBox" id="startScreen">
+        <div class="flexItem">
+            <div class="flexItem">
+                <img src="/images/snakeWithApple.jpg" alt="Snake Picture">
+            </div>
+            <div class="flexItem" id="startTextField">
+                <h1>Willkommen zu Snake</h1>
+                <p>Zum starten des Spiels einfach den Knopf drücken</p>
+                <a href="snakeGame.html"><button id="difficultyEasy" class="difficultySelection">Leicht</button></a>&nbsp;
+                <a href="snakeGame.html"><button id="difficultyMedium" class="difficultySelection">Mittel</button></a>&nbsp;
+                <a href="snakeGame.html"><button id="difficultyHard" class="difficultySelection">Schwer</button></a>
+            </div>
+        </div>
+    </div>
 </body>
-
 </html>
