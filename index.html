@@ -12,11 +12,19 @@
                 <img src="/images/snakeWithApple.jpg" alt="Snake Picture">
             </div>
             <div class="flexItem" id="startTextField">
-                <h1>Willkommen zu Snake</h1>
-                <p>Zum starten des Spiels einfach den Knopf drücken</p>
-                <a href="snakeGame.html"><button id="difficultyEasy" class="difficultySelection">Leicht</button></a>&nbsp;
-                <a href="snakeGame.html"><button id="difficultyMedium" class="difficultySelection">Mittel</button></a>&nbsp;
-                <a href="snakeGame.html"><button id="difficultyHard" class="difficultySelection">Schwer</button></a>
+                <form method="post">
+                    <h1>Willkommen zu Snake</h1>
+                    <p>Bitte wählen sie einen Schwierigkeitsgrad und drücken dann auf den Startknopf</p>
+                    <fieldset id="selectionArea">
+                    <input type="radio" id="Easy" value="Easy" name="difficultySetting"><label for="Easy">&nbsp;Easy</label>
+                    <input type="radio" id="Medium" value="Medium" name="difficultySetting"><label for="Medium">&nbsp;Medium</label>
+                    <input type="radio" id="Hard" value="Hard" name="difficultySetting"><label for="Hard">&nbsp;Hard</label>
+                    <br>
+                    <a href="snakeGame.html"><button type="button" id="difficultyEasy" value="Easy" class="difficultySelection">Starten</button></a><!--&nbsp;
+                    <a href="snakeGame.html"><button id="difficultyMedium" value="Medium" class="difficultySelection">Mittel</button></a>&nbsp;
+                    <a href="snakeGame.html"><button id="difficultyHard" value="Hard" class="difficultySelection">Schwer</button></a>-->
+                    </fieldset>
+                </form>
             </div>
         </div>
     </div>

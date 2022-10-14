@@ -15,9 +15,15 @@ html, body {
     width: 100px;
     height: 40px;
 }
-#difficultyMedium {
+#selectionArea {
+    border: solid black 0;
+}
+#Medium {
     margin-left: 30px;
-    margin-right: 30px;
+    margin-bottom: 30px;
+}
+#Hard {
+    margin-left: 30px;
 }
 #snakeGameField {
     align-items: center;

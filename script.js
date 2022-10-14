@@ -2,7 +2,7 @@
 const LIMIT = 500;  //anzahl der schritte die die schlange macht
 let run_count=0;
 let interval_id;
-let speed = 200;
+let speed = 1000;
 
 let gamescreen = document.getElementById('gamescreen');
 //var x = 250;
@@ -167,6 +167,7 @@ function draw() {   //draw funktion beinhaltet alles was "gezeichnet" wird -- li
         gameOver();
     } else {
         clear();
+        console.log(speed);
         moveSnake();
         rectApple(apple_position_x, apple_position_y, SEGMENT_WIDTH, SEGMENT_HEIGHT); //hier ist der apfel selbst //funktion
     }
