@@ -2,15 +2,15 @@
 const LIMIT = 500;  //anzahl der schritte die die schlange macht
 let run_count=0;
 let interval_id;
-let speed = 1000;
+let speed = 240;
 
 let gamescreen = document.getElementById('gamescreen');
 //var x = 250;
 //var y = 250;
 const leftWall = 0;
 const topWall = 0;
-let snakeSpawnX = 600;
-let snakeSpawnY = 600;
+let snakeSpawnX = 550;
+let snakeSpawnY = 550;
 const step = 10;
 let direction;
 let apple_position_x;
@@ -26,6 +26,72 @@ let ctx = gamescreen.getContext('2d');
 
 const SEGMENT_WIDTH = 10;
 const SEGMENT_HEIGHT = 10;
+
+let gameDifficultyEasy =document.getElementById('difficultyEasy');
+let gameDifficultyMedium = document.getElementById('difficultyMedium');
+let gameDifficultyHard = document.getElementById('difficultyHard');
+
+let gamemodeStrength;
+
+let gameStatus = false;
+
+//----------------------------------------------------------------------------------------------------------------------
+
+
+if (gameDifficultyEasy) {
+    gameDifficultyEasy.addEventListener('click', setGamemodeEasy, false)
+}
+if (gameDifficultyMedium) {
+    gameDifficultyMedium.addEventListener('click', setGamemodeMedium, false)
+}
+if (gameDifficultyHard) {
+    gameDifficultyHard.addEventListener('click', setGamemodeHard, false)
+}
+
+function setGamemodeEasy() {
+    gamemodeStrength = 1;
+    gameDifficultyEasy.setAttribute('disabled', 'disabled');
+    gameDifficultyMedium.setAttribute('disabled', 'disabled');
+    gameDifficultyHard.setAttribute('disabled', 'disabled');
+    init();
+}
+
+function setGamemodeMedium() {
+    gamemodeStrength = 2;
+    gameDifficultyEasy.setAttribute('disabled', 'disabled');
+    gameDifficultyMedium.setAttribute('disabled', 'disabled');
+    gameDifficultyHard.setAttribute('disabled', 'disabled');
+    init();
+}
+
+function setGamemodeHard() {
+    gamemodeStrength = 3;
+    gameDifficultyEasy.setAttribute('disabled', 'disabled');
+    gameDifficultyMedium.setAttribute('disabled', 'disabled');
+    gameDifficultyHard.setAttribute('disabled', 'disabled');
+    init();
+}
+
+
+function setStartingSpeed() {
+    if(gamemodeStrength===1) {
+        speed = 500;
+        console.log(speed);
+        interval_id = setInterval(draw, speed);
+    }
+    if(gamemodeStrength===2) {
+        speed = 350;
+        console.log(speed);
+        interval_id = setInterval(draw, speed);
+    }
+    if(gamemodeStrength===3) {
+        speed = 250;
+        console.log(speed);
+        interval_id = setInterval(draw, speed);
+    }
+}
+
+//----------------------------------------------------------------------------------------------------------------------
 
 function isWallCollision() {
     if(snake[0].x < leftWall
@@ -181,7 +247,7 @@ function getRandomInt(min, max) {
 
 function init() {
     init_apple();
-    interval_id = setInterval(draw, speed);  //draw ist das zeichenevent, die zahl ist die geschwindigkeit in millisekunden --!10 milisekunden sind viel zu schnell -- 100 milisekunden auf dauer zu schnell!
+    setStartingSpeed();
 }
 
 document.addEventListener('keydown', onKeyDown);  //eventlistener überstetzt den analogen tastendruck als digitales signal
