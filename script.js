@@ -2,7 +2,8 @@
 const LIMIT = 500;  //anzahl der schritte die die schlange macht
 let run_count=0;
 let interval_id;
-let speed = 240;
+let speed = 1000;
+const originSpeed  = 1000;
 
 let gamescreen = document.getElementById('gamescreen');
 //var x = 250;
@@ -33,9 +34,10 @@ let gameDifficultyHard = document.getElementById('difficultyHard');
 
 let gamemodeStrength;
 
-let gameStatus = false;
-
-//----------------------------------------------------------------------------------------------------------------------
+let modal = document.getElementById("endModal");
+let modalCloseButton = document.getElementById("closeButton");
+let modalResetButton = document.getElementById("resetButton");
+let modalText = document.getElementById("modalText");
 
 
 if (gameDifficultyEasy) {
@@ -91,14 +93,12 @@ function setStartingSpeed() {
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------
-
 function isWallCollision() {
     if(snake[0].x < leftWall
         || gamescreen_width - snake[0].x < step
         || snake[0].y < topWall
         || gamescreen_height - snake[0].y < step) {
-        deathReason = 'death because of wall';
+        deathReason = 'You have collided with the wall.';
         return true;
     }
     return false;
@@ -109,7 +109,7 @@ function isSelfCollision() {
     let tail = snake.slice(1,snake.length);
     for(i=0;i<tail.length;i++) {
         if(tail[i].x === head.x && tail[i].y === head.y) {
-            deathReason = 'death because of self-eating';
+            deathReason = 'You bit your own tail.';
             return true;
         }
     }
@@ -119,7 +119,23 @@ function isSelfCollision() {
 function gameOver() {
     clearInterval(interval_id);
     console.log('You is dead! Size: ' + size);
-    window.alert('You Lost! You ate "' + appleCounter + '" Apples.\nThe size of your snake was: ' + size ); //+ deathReason );
+    modalAppearance();
+}
+
+function modalAppearance() {
+    modal.style.display = "flex";
+    modalText.innerHTML = "You Lost! You ate " + appleCounter + " Apples. <br> The size of your snake was: " + size + ".<br> You died because of: " + deathReason;
+    modalCloseButton.onclick = function () {
+        modal.style.display = "none";
+    }
+    modalResetButton.onclick = function () {
+        window.location.reload();
+    }
+    window.onclick = function(event) {
+        if(event.target === modal) {
+            modal.style.display = "none";
+        }
+    }
 }
 
 function isAppleEaten() {
