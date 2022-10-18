@@ -1,13 +1,10 @@
 // for debugging
-const LIMIT = 500;  //anzahl der schritte die die schlange macht
+const LIMIT = 500;
 let run_count=0;
 let interval_id;
 let speed = 1000;
-const originSpeed  = 1000;
 
 let gamescreen = document.getElementById('gamescreen');
-//var x = 250;
-//var y = 250;
 const leftWall = 0;
 const topWall = 0;
 let snakeSpawnX = 550;
@@ -39,6 +36,9 @@ let modalCloseButton = document.getElementById("closeButton");
 let modalResetButton = document.getElementById("resetButton");
 let modalText = document.getElementById("modalText");
 
+let screenHeight = document.getElementById("snakeGameField");
+
+let timeToReplay = 6;
 
 if (gameDifficultyEasy) {
     gameDifficultyEasy.addEventListener('click', setGamemodeEasy, false)
@@ -105,7 +105,7 @@ function isWallCollision() {
 }
 function isSelfCollision() {
     const head = snake[0];
-    rectSnake(head.x, head.y, SEGMENT_WIDTH, SEGMENT_HEIGHT);  //function
+    rectSnake(head.x, head.y, SEGMENT_WIDTH, SEGMENT_HEIGHT);
     let tail = snake.slice(1,snake.length);
     for(i=0;i<tail.length;i++) {
         if(tail[i].x === head.x && tail[i].y === head.y) {
@@ -116,25 +116,57 @@ function isSelfCollision() {
     return false;
 }
 
+function changeScreenHeightBigger() {
+    screenHeight.style.height = "107%";
+}
+
+function changeScreenHeightSmaller() {
+    screenHeight.style.height = "100%";
+}
+
+function replayTimer() {
+    setTimeout(function () {
+        timeToReplay--;
+        if (timeToReplay > 0) {
+            modalText.innerHTML = "Time befor Reset: " + timeToReplay;
+            replayTimer();
+        }
+        if (timeToReplay === 0) {
+            window.location.reload();
+        }
+    }, 1000)
+}
+
+
 function gameOver() {
     clearInterval(interval_id);
     console.log('You is dead! Size: ' + size);
-    modalAppearance();
+    modalAppearanceGameOver();
 }
 
-function modalAppearance() {
+function modalAppearanceGameOver() {
+    changeScreenHeightBigger();
     modal.style.display = "flex";
     modalText.innerHTML = "You Lost! You ate " + appleCounter + " Apples. <br> The size of your snake was: " + size + ".<br> You died because of: " + deathReason;
     modalCloseButton.onclick = function () {
+        changeScreenHeightSmaller();
         modal.style.display = "none";
     }
     modalResetButton.onclick = function () {
-        window.location.reload();
+        replayTimer();
     }
-    window.onclick = function(event) {
-        if(event.target === modal) {
-            modal.style.display = "none";
-        }
+}
+
+function modalAppearanceToManySteps() {
+    changeScreenHeightBigger();
+    modal.style.display = "flex";
+    modalText.innerHTML = "You made too many steps :( <br>if this Error occures again after reload, <br>PLEASE inform the creator about it and tell him this step number: " + run_count;
+    modalCloseButton.onclick = function () {
+        changeScreenHeightSmaller();
+        modal.style.display = "none";
+    }
+    modalResetButton.onclick = function () {
+        replayTimer();
     }
 }
 
@@ -153,7 +185,7 @@ function isAppleEaten() {
 
 function moveSnake() {
     snake.forEach(function(segment) {
-        rectSnake(segment.x,segment.y,SEGMENT_WIDTH,SEGMENT_HEIGHT); //function
+        rectSnake(segment.x,segment.y,SEGMENT_WIDTH,SEGMENT_HEIGHT);
     });
 
     if(isAppleEaten()) {
@@ -167,11 +199,11 @@ function moveSnake() {
 }
 
 function init_apple() {
-    apple_position_x = getRandomInt(0,gamescreen_width);  //x position des apfels wird generiert durch nen randomgenerator
-    apple_position_y = getRandomInt(0,gamescreen_height); //y position des apfels wird generiert durch nen randomgenerator
+    apple_position_x = getRandomInt(0,gamescreen_width);
+    apple_position_y = getRandomInt(0,gamescreen_height);
 }
 
-function checkDirection() { //GLAUBE: deklaration der richtungen
+function checkDirection() {
     switch(direction) {
         case 'left':
             snakeSpawnX -= step;
@@ -186,12 +218,12 @@ function checkDirection() { //GLAUBE: deklaration der richtungen
             snakeSpawnY += step;
             break;
         default:
-            direction = 'up';   //Wohin er standardmäßig hinläuft
+            direction = 'up';
             snakeSpawnY -= step;
     }
 }
 
-function onKeyDown(evt) { //funktion schaut ob tasten gedrückt werden
+function onKeyDown(evt) {
     switch(evt.keyCode) {
         // left
         case 37:
@@ -238,20 +270,24 @@ function drawBox(x,y,width,height, color) {
 
 
 
-function draw() {   //draw funktion beinhaltet alles was "gezeichnet" wird -- like apfelposition
+function draw() {
     run_count++;
+    if (run_count===450) {
+        run_count = 0;
+    }
     if(LIMIT !== 0 && run_count > LIMIT) {
+        modalAppearanceToManySteps();
         clearInterval(interval_id);
     }
-    checkDirection()    //richtung wird geprüft
+    checkDirection()
     snake.unshift({'x': snakeSpawnX,'y': snakeSpawnY});
-    if(isSelfCollision() || isWallCollision()) {    //bedingungen für ein game over
+    if(isSelfCollision() || isWallCollision()) {
         gameOver();
     } else {
         clear();
         console.log(speed);
         moveSnake();
-        rectApple(apple_position_x, apple_position_y, SEGMENT_WIDTH, SEGMENT_HEIGHT); //hier ist der apfel selbst //funktion
+        rectApple(apple_position_x, apple_position_y, SEGMENT_WIDTH, SEGMENT_HEIGHT);
     }
 }
 
@@ -266,6 +302,6 @@ function init() {
     setStartingSpeed();
 }
 
-document.addEventListener('keydown', onKeyDown);  //eventlistener überstetzt den analogen tastendruck als digitales signal
+document.addEventListener('keydown', onKeyDown);
 
 init();

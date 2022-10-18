@@ -14,17 +14,28 @@ html, body {
 .difficultySelection {
     width: 100px;
     height: 40px;
+    color: black;
+    font-weight: bold;
 }
-.modalContent {
+#modalContent {
     background-color: #fefefe;
     padding: 20px;
     position: center;
-    border: solid #888 1px;
-    width: 80%;
+    border: solid black 1px;
+    width: 100%;
 }
-#closeButton, #resetButton {
-    color: black;
-    font-weight: bold;
+#modalText {
+    text-align: center;
+    display: flex;
+}
+p#modalText {
+    margin-left: 25%;
+}
+#closeButton {
+    margin-left: 30%;
+}
+#resetButton {
+    margin-left: 20%;
 }
 #closeButton.hover, #closeButton.focus {
     color: black;
@@ -37,10 +48,10 @@ html, body {
     width: 50%;
     z-index: 10;
     top: 0;
-    left: 49%;
+    left: 50%;
     overflow: auto;
     background-color: rgb(250,250,250);
-    background-color: rgba(244,244,244,0.4);
+    background-color: rgba(255,255,255,100);
 }
 #difficultyMedium {
     margin-left: 30px;
