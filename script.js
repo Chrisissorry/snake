@@ -35,7 +35,7 @@ let modalText = document.getElementById("modalText");
 
 let screenHeight = document.getElementById("fullScreen");
 
-let timeToReplay = 6;
+let timeToReplay = 5;
 
 if (gameDifficultyEasy) {
     gameDifficultyEasy.addEventListener('click', setGamemodeEasy, false)
@@ -83,7 +83,7 @@ function setStartingSpeed() {
         interval_id = setInterval(draw, speed);
     }
     if (gamemodeStrength === 3) {
-        speed = 250;
+        speed = 50;
         interval_id = setInterval(draw, speed);
     }
 }
@@ -102,7 +102,7 @@ function isWallCollision() {
 function isSelfCollision() {
     const head = snake[0];
     rectSnake(head.x, head.y, SEGMENT_WIDTH, SEGMENT_HEIGHT);
-    let tail = snake.slice(1,snake.length);
+    let tail = snake.slice(1, snake.length);
     for (let i = 0; i < tail.length; i++) {
         if (tail[i].x === head.x && tail[i].y === head.y) {
             deathReason = 'You bit your own tail.';
@@ -121,16 +121,19 @@ function changeScreenHeightSmaller() {
 }
 
 function replayTimer() {
-    setTimeout(function () {
+    console.log(timeToReplay);
+    while (timeToReplay > 0) {
+        console.log("here");
+        setTimeout(function () {
+            modalText.innerHTML = "Time before reset: " + timeToReplay;
+            console.log(timeToReplay);
+        }, 1000)
+
+        console.log(timeToReplay);
         timeToReplay--;
-        if (timeToReplay > 0) {
-            modalText.innerHTML = "Time befor Reset: " + timeToReplay;
-            replayTimer();
-        }
-        if (timeToReplay === 0) {
-            window.location.reload();
-        }
-    }, 1000)
+    }
+
+    //window.location.reload();
 }
 
 function gameOver() {
@@ -165,8 +168,8 @@ function isAppleEaten() {
 }
 
 function moveSnake() {
-    snake.forEach(function(segment) {
-        rectSnake(segment.x,segment.y,SEGMENT_WIDTH,SEGMENT_HEIGHT);
+    snake.forEach(function (segment) {
+        rectSnake(segment.x, segment.y, SEGMENT_WIDTH, SEGMENT_HEIGHT);
     });
 
     if (isAppleEaten()) {
@@ -179,12 +182,12 @@ function moveSnake() {
 }
 
 function init_apple() {
-    apple_position_x = getRandomInt(0,gamescreen_width);
-    apple_position_y = getRandomInt(0,gamescreen_height);
+    apple_position_x = getRandomInt(0, gamescreen_width);
+    apple_position_y = getRandomInt(0, gamescreen_height);
 }
 
 function checkDirection() {
-    switch(direction) {
+    switch (direction) {
         case 'left':
             snakeSpawnX -= step;
             break;
@@ -204,43 +207,43 @@ function checkDirection() {
 }
 
 function onKeyDown(evt) {
-    switch(evt.keyCode) {
+    switch (evt.keyCode) {
         // left
         case 37:
-            if(direction === 'right') break;
+            if (direction === 'right') break;
             direction = 'left';
             break;
         // up
         case 38:
-            if(direction === 'down') break;
+            if (direction === 'down') break;
             direction = 'up';
             break;
         // right
         case 39:
-            if(direction === 'left') return;
+            if (direction === 'left') return;
             direction = 'right';
             break;
         // down
         case 40:
-            if(direction === 'up') break;
+            if (direction === 'up') break;
             direction = 'down';
             break;
     }
 }
 
 function clear() {
-    ctx.clearRect(-1,-1,gamescreen_width,gamescreen_height);
+    ctx.clearRect(-1, -1, gamescreen_width, gamescreen_height);
 }
 
-function rectApple(x,y,width,height) {
+function rectApple(x, y, width, height) {
     drawBox(x, y, width, height, "red");
 }
 
-function rectSnake(x,y,width,height) {
+function rectSnake(x, y, width, height) {
     drawBox(x, y, width, height, "green");
 }
 
-function drawBox(x,y,width,height, color) {
+function drawBox(x, y, width, height, color) {
     ctx.beginPath();
     ctx.fillStyle = color;
     ctx.rect(x, y, width, height);
@@ -250,11 +253,10 @@ function drawBox(x,y,width,height, color) {
 
 function draw() {
     checkDirection()
-    snake.unshift({'x': snakeSpawnX,'y': snakeSpawnY});
+    snake.unshift({'x': snakeSpawnX, 'y': snakeSpawnY});
     if (isSelfCollision() || isWallCollision()) {
         gameOver();
     }
-    console.log(speed);
     clear();
     moveSnake();
     rectApple(apple_position_x, apple_position_y, SEGMENT_WIDTH, SEGMENT_HEIGHT);
@@ -263,7 +265,7 @@ function draw() {
 function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
-    return Math.floor(((Math.random() * (max - min +1)) + min)/10)*10;
+    return Math.floor(((Math.random() * (max - min + 1)) + min) / 10) * 10;
 }
 
 function init() {
