@@ -1,6 +1,3 @@
-// for debugging
-const LIMIT = 500;
-let run_count=0;
 let interval_id;
 let speed = 1000;
 
@@ -15,7 +12,7 @@ let apple_position_x;
 let apple_position_y;
 let size = 1;
 let appleCounter = 0;
-let snake = new Array();
+let snake = [];
 let deathReason;
 
 let gamescreen_height = gamescreen.height;
@@ -25,7 +22,7 @@ let ctx = gamescreen.getContext('2d');
 const SEGMENT_WIDTH = 10;
 const SEGMENT_HEIGHT = 10;
 
-let gameDifficultyEasy =document.getElementById('difficultyEasy');
+let gameDifficultyEasy = document.getElementById('difficultyEasy');
 let gameDifficultyMedium = document.getElementById('difficultyMedium');
 let gameDifficultyHard = document.getElementById('difficultyHard');
 
@@ -36,7 +33,7 @@ let modalCloseButton = document.getElementById("closeButton");
 let modalResetButton = document.getElementById("resetButton");
 let modalText = document.getElementById("modalText");
 
-let screenHeight = document.getElementById("snakeGameField");
+let screenHeight = document.getElementById("fullScreen");
 
 let timeToReplay = 6;
 
@@ -48,53 +45,51 @@ if (gameDifficultyMedium) {
 }
 if (gameDifficultyHard) {
     gameDifficultyHard.addEventListener('click', setGamemodeHard, false)
-}
+}   //--------------------------------------------------------------------------------------------------------------
 
 function setGamemodeEasy() {
     gamemodeStrength = 1;
-    gameDifficultyEasy.setAttribute('disabled', 'disabled');
-    gameDifficultyMedium.setAttribute('disabled', 'disabled');
-    gameDifficultyHard.setAttribute('disabled', 'disabled');
-    init();
+    gameStart();
 }
 
 function setGamemodeMedium() {
     gamemodeStrength = 2;
-    gameDifficultyEasy.setAttribute('disabled', 'disabled');
-    gameDifficultyMedium.setAttribute('disabled', 'disabled');
-    gameDifficultyHard.setAttribute('disabled', 'disabled');
-    init();
+    gameStart();
 }
 
 function setGamemodeHard() {
     gamemodeStrength = 3;
-    gameDifficultyEasy.setAttribute('disabled', 'disabled');
-    gameDifficultyMedium.setAttribute('disabled', 'disabled');
-    gameDifficultyHard.setAttribute('disabled', 'disabled');
+    gameStart();
+}
+
+function gameStart() {
+    lockbuttons();
     init();
 }
 
+function lockbuttons() {
+    gameDifficultyEasy.setAttribute('disabled', 'disabled');
+    gameDifficultyMedium.setAttribute('disabled', 'disabled');
+    gameDifficultyHard.setAttribute('disabled', 'disabled');
+}
 
 function setStartingSpeed() {
-    if(gamemodeStrength===1) {
+    if (gamemodeStrength === 1) {
         speed = 500;
-        console.log(speed);
         interval_id = setInterval(draw, speed);
     }
-    if(gamemodeStrength===2) {
+    if (gamemodeStrength === 2) {
         speed = 350;
-        console.log(speed);
         interval_id = setInterval(draw, speed);
     }
-    if(gamemodeStrength===3) {
+    if (gamemodeStrength === 3) {
         speed = 250;
-        console.log(speed);
         interval_id = setInterval(draw, speed);
     }
 }
 
 function isWallCollision() {
-    if(snake[0].x < leftWall
+    if (snake[0].x < leftWall
         || gamescreen_width - snake[0].x < step
         || snake[0].y < topWall
         || gamescreen_height - snake[0].y < step) {
@@ -103,12 +98,13 @@ function isWallCollision() {
     }
     return false;
 }
+
 function isSelfCollision() {
     const head = snake[0];
     rectSnake(head.x, head.y, SEGMENT_WIDTH, SEGMENT_HEIGHT);
     let tail = snake.slice(1,snake.length);
-    for(i=0;i<tail.length;i++) {
-        if(tail[i].x === head.x && tail[i].y === head.y) {
+    for (let i = 0; i < tail.length; i++) {
+        if (tail[i].x === head.x && tail[i].y === head.y) {
             deathReason = 'You bit your own tail.';
             return true;
         }
@@ -137,10 +133,8 @@ function replayTimer() {
     }, 1000)
 }
 
-
 function gameOver() {
     clearInterval(interval_id);
-    console.log('You is dead! Size: ' + size);
     modalAppearanceGameOver();
 }
 
@@ -157,25 +151,12 @@ function modalAppearanceGameOver() {
     }
 }
 
-function modalAppearanceToManySteps() {
-    changeScreenHeightBigger();
-    modal.style.display = "flex";
-    modalText.innerHTML = "You made too many steps :( <br>if this Error occures again after reload, <br>PLEASE inform the creator about it and tell him this step number: " + run_count;
-    modalCloseButton.onclick = function () {
-        changeScreenHeightSmaller();
-        modal.style.display = "none";
-    }
-    modalResetButton.onclick = function () {
-        replayTimer();
-    }
-}
-
 function isAppleEaten() {
     if (snakeSpawnX === apple_position_x && snakeSpawnY === apple_position_y) {
         clearInterval(interval_id);
-        speed = speed - 2;
+        speed = speed - 2;  //--------------------------------------------------------------------------------
         interval_id = setInterval(draw, speed);
-        if (speed === 50) {
+        if (speed <= 50) {
             speed = 50;
         }
         return true;
@@ -188,12 +169,11 @@ function moveSnake() {
         rectSnake(segment.x,segment.y,SEGMENT_WIDTH,SEGMENT_HEIGHT);
     });
 
-    if(isAppleEaten()) {
+    if (isAppleEaten()) {
         size++;
         appleCounter++;
-        console.log(speed);
         init_apple();
-    } else {
+    } else {    //-----------------------------------------------------------------------------------------------------
         snake.pop();
     }
 }
@@ -268,27 +248,16 @@ function drawBox(x,y,width,height, color) {
     ctx.fill();
 }
 
-
-
 function draw() {
-    run_count++;
-    if (run_count===450) {
-        run_count = 0;
-    }
-    if(LIMIT !== 0 && run_count > LIMIT) {
-        modalAppearanceToManySteps();
-        clearInterval(interval_id);
-    }
     checkDirection()
     snake.unshift({'x': snakeSpawnX,'y': snakeSpawnY});
-    if(isSelfCollision() || isWallCollision()) {
+    if (isSelfCollision() || isWallCollision()) {
         gameOver();
-    } else {
-        clear();
-        console.log(speed);
-        moveSnake();
-        rectApple(apple_position_x, apple_position_y, SEGMENT_WIDTH, SEGMENT_HEIGHT);
     }
+    console.log(speed);
+    clear();
+    moveSnake();
+    rectApple(apple_position_x, apple_position_y, SEGMENT_WIDTH, SEGMENT_HEIGHT);
 }
 
 function getRandomInt(min, max) {
@@ -303,5 +272,3 @@ function init() {
 }
 
 document.addEventListener('keydown', onKeyDown);
-
-init();
