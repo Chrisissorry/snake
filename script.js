@@ -26,7 +26,7 @@ let gameDifficultyEasy = document.getElementById('difficultyEasy');
 let gameDifficultyMedium = document.getElementById('difficultyMedium');
 let gameDifficultyHard = document.getElementById('difficultyHard');
 
-let gamemodeStrength;
+let speedSetup = [];
 
 let modal = document.getElementById("endModal");
 let modalCloseButton = document.getElementById("closeButton");
@@ -35,7 +35,7 @@ let modalText = document.getElementById("modalText");
 
 let screenHeight = document.getElementById("fullScreen");
 
-let timeToReplay = 5;
+let counterTimer = 5;
 
 if (gameDifficultyEasy) {
     gameDifficultyEasy.addEventListener('click', setGamemodeEasy, false)
@@ -45,20 +45,20 @@ if (gameDifficultyMedium) {
 }
 if (gameDifficultyHard) {
     gameDifficultyHard.addEventListener('click', setGamemodeHard, false)
-}   //--------------------------------------------------------------------------------------------------------------
+}
 
 function setGamemodeEasy() {
-    gamemodeStrength = 1;
+    speedSetup[0] = 200;
     gameStart();
 }
 
 function setGamemodeMedium() {
-    gamemodeStrength = 2;
+    speedSetup[0] = 130;
     gameStart();
 }
 
 function setGamemodeHard() {
-    gamemodeStrength = 3;
+    speedSetup[0] = 60;
     gameStart();
 }
 
@@ -74,18 +74,8 @@ function lockbuttons() {
 }
 
 function setStartingSpeed() {
-    if (gamemodeStrength === 1) {
-        speed = 500;
-        interval_id = setInterval(draw, speed);
-    }
-    if (gamemodeStrength === 2) {
-        speed = 350;
-        interval_id = setInterval(draw, speed);
-    }
-    if (gamemodeStrength === 3) {
-        speed = 50;
-        interval_id = setInterval(draw, speed);
-    }
+    speed = speedSetup[0];
+    interval_id = setInterval(draw, speed);
 }
 
 function isWallCollision() {
@@ -121,19 +111,17 @@ function changeScreenHeightSmaller() {
 }
 
 function replayTimer() {
-    console.log(timeToReplay);
-    while (timeToReplay > 0) {
-        console.log("here");
-        setTimeout(function () {
-            modalText.innerHTML = "Time before reset: " + timeToReplay;
-            console.log(timeToReplay);
-        }, 1000)
-
-        console.log(timeToReplay);
-        timeToReplay--;
+    counterTimer = 5;
+    while (counterTimer > 0) {
+        (function (counterTimer) {
+            let timeToReplay = 5;
+            setTimeout(function () {
+                let resultTimer = 0;
+                resultTimer = timeToReplay - counterTimer;
+                modalText.innerHTML = "Time before reset: " + resultTimer;
+            }, 1000 * counterTimer)
+        })(counterTimer--)
     }
-
-    //window.location.reload();
 }
 
 function gameOver() {
@@ -151,16 +139,19 @@ function modalAppearanceGameOver() {
     }
     modalResetButton.onclick = function () {
         replayTimer();
+        setTimeout(function () {
+            window.location.reload();
+        }, 5000)
     }
 }
 
 function isAppleEaten() {
     if (snakeSpawnX === apple_position_x && snakeSpawnY === apple_position_y) {
         clearInterval(interval_id);
-        speed = speed - 2;  //--------------------------------------------------------------------------------
+        speed = speed - 2;
         interval_id = setInterval(draw, speed);
-        if (speed <= 50) {
-            speed = 50;
+        if (speed <= 30) {
+            speed = 30;
         }
         return true;
     }
@@ -176,7 +167,7 @@ function moveSnake() {
         size++;
         appleCounter++;
         init_apple();
-    } else {    //-----------------------------------------------------------------------------------------------------
+    } else {
         snake.pop();
     }
 }
