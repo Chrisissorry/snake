@@ -167,9 +167,9 @@ function moveSnake() {
         size++;
         appleCounter++;
         init_apple();
-    } else {
-        snake.pop();
+        return;
     }
+    snake.pop();
 }
 
 function init_apple() {
