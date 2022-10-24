@@ -4,9 +4,6 @@ html, body {
 h1 {
     text-decoration: underline;
 }
-button {
-
-}
 .basicStyling {
     padding: 0;
     margin: 0;
@@ -17,7 +14,7 @@ button {
 .centerArea {
     align-self: center;
 }
-.difficultySelection {
+.buttonStyle {
     width: 100px;
     height: 40px;
     color: black;
@@ -28,6 +25,7 @@ button {
     padding: 20px;
     position: center;
     border: solid black 1px;
+    border-radius: 30px;
     width: 100%;
 }
 #modalText {
@@ -68,6 +66,7 @@ p#modalText {
     align-items: center;
     flex-direction: column;
     z-index: auto;
+    overflow: auto;
 }
 #topSide {
     text-align: center;
@@ -81,4 +80,5 @@ p#modalText {
     padding-left: 0;
     padding-right: 0;
     width: 1100px;
+    margin-bottom: 1%;
 }

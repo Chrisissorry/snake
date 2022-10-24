@@ -26,8 +26,6 @@ let gameDifficultyEasy = document.getElementById('difficultyEasy');
 let gameDifficultyMedium = document.getElementById('difficultyMedium');
 let gameDifficultyHard = document.getElementById('difficultyHard');
 
-let speedSetup = [];
-
 let modal = document.getElementById("endModal");
 let modalCloseButton = document.getElementById("closeButton");
 let modalResetButton = document.getElementById("resetButton");
@@ -37,45 +35,32 @@ let screenHeight = document.getElementById("fullScreen");
 
 let counterTimer = 5;
 
-if (gameDifficultyEasy) {
-    gameDifficultyEasy.addEventListener('click', setGamemodeEasy, false)
-}
-if (gameDifficultyMedium) {
-    gameDifficultyMedium.addEventListener('click', setGamemodeMedium, false)
-}
-if (gameDifficultyHard) {
-    gameDifficultyHard.addEventListener('click', setGamemodeHard, false)
-}
+gameDifficultyEasy.addEventListener('click', () => startGame('easy'), false);
 
-function setGamemodeEasy() {
-    speedSetup[0] = 200;
-    gameStart();
-}
+gameDifficultyMedium.addEventListener('click', () => startGame('medium'), false);
 
-function setGamemodeMedium() {
-    speedSetup[0] = 130;
-    gameStart();
-}
+gameDifficultyHard.addEventListener('click', () => startGame('hard'), false);
 
-function setGamemodeHard() {
-    speedSetup[0] = 60;
-    gameStart();
-}
-
-function gameStart() {
-    lockbuttons();
+function startGame(difficulty) {
+    switch (difficulty) {
+        case 'easy':
+            speed = 200;
+            break;
+        case 'medium':
+            speed = 130;
+            break;
+        case 'hard':
+            speed = 60;
+            break;
+    }
+    lockButtons();
     init();
 }
 
-function lockbuttons() {
+function lockButtons() {
     gameDifficultyEasy.setAttribute('disabled', 'disabled');
     gameDifficultyMedium.setAttribute('disabled', 'disabled');
     gameDifficultyHard.setAttribute('disabled', 'disabled');
-}
-
-function setStartingSpeed() {
-    speed = speedSetup[0];
-    interval_id = setInterval(draw, speed);
 }
 
 function isWallCollision() {
@@ -103,7 +88,7 @@ function isSelfCollision() {
 }
 
 function changeScreenHeightBigger() {
-    screenHeight.style.height = "107%";
+    screenHeight.style.height = "108%";
 }
 
 function changeScreenHeightSmaller() {
@@ -111,13 +96,11 @@ function changeScreenHeightSmaller() {
 }
 
 function replayTimer() {
-    counterTimer = 5;
     while (counterTimer > 0) {
         (function (counterTimer) {
             let timeToReplay = 5;
             setTimeout(function () {
-                let resultTimer = 0;
-                resultTimer = timeToReplay - counterTimer;
+                let resultTimer = timeToReplay - counterTimer;
                 modalText.innerHTML = "Time before reset: " + resultTimer;
             }, 1000 * counterTimer)
         })(counterTimer--)
@@ -261,7 +244,7 @@ function getRandomInt(min, max) {
 
 function init() {
     init_apple();
-    setStartingSpeed();
+    interval_id = setInterval(draw, speed);
 }
 
 document.addEventListener('keydown', onKeyDown);
