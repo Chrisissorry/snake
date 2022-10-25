@@ -35,34 +35,6 @@ let screenHeight = document.getElementById("fullScreen");
 
 let counterTimer = 5;
 
-gameDifficultyEasy.addEventListener('click', () => startGame('easy'), false);
-
-gameDifficultyMedium.addEventListener('click', () => startGame('medium'), false);
-
-gameDifficultyHard.addEventListener('click', () => startGame('hard'), false);
-
-function startGame(difficulty) {
-    switch (difficulty) {
-        case 'easy':
-            speed = 200;
-            break;
-        case 'medium':
-            speed = 130;
-            break;
-        case 'hard':
-            speed = 60;
-            break;
-    }
-    lockButtons();
-    init();
-}
-
-function lockButtons() {
-    gameDifficultyEasy.setAttribute('disabled', 'disabled');
-    gameDifficultyMedium.setAttribute('disabled', 'disabled');
-    gameDifficultyHard.setAttribute('disabled', 'disabled');
-}
-
 function isWallCollision() {
     if (snake[0].x < leftWall
         || gamescreen_width - snake[0].x < step
@@ -93,18 +65,6 @@ function changeScreenHeightBigger() {
 
 function changeScreenHeightSmaller() {
     screenHeight.style.height = "100%";
-}
-
-function replayTimer() {
-    while (counterTimer > 0) {
-        (function (counterTimer) {
-            let timeToReplay = 5;
-            setTimeout(function () {
-                let resultTimer = timeToReplay - counterTimer;
-                modalText.innerHTML = "Time before reset: " + resultTimer;
-            }, 1000 * counterTimer)
-        })(counterTimer--)
-    }
 }
 
 function gameOver() {
@@ -240,11 +200,6 @@ function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(((Math.random() * (max - min + 1)) + min) / 10) * 10;
-}
-
-function init() {
-    init_apple();
-    interval_id = setInterval(draw, speed);
 }
 
 document.addEventListener('keydown', onKeyDown);
