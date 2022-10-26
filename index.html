@@ -1,179 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>A Game of Snake Clone</title>
-  <style>
-    #gamescreen {
-      border: 1px solid black;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="styles.css">
+    <title>Snake</title>
 </head>
-
 <body>
-  <canvas id="gamescreen" width="300" height="300"></canvas>
-  <script>
-
-    // for debugging
-    var LIMIT = 500;
-    var run_count=0;
-    var interval_id;
-
-    var x = 250;
-    var y = 250;
-    var step = 10;
-    var direction;
-    var apple_position_x;
-    var apple_position_y;
-    var size = 1;
-    var snake = new Array();
-
-    var gamescreen = document.getElementById('gamescreen');
-    var gamescreen_height = gamescreen.height;
-    var gamescreen_width = gamescreen.width;
-    var ctx = gamescreen.getContext('2d');
-
-    var SEGMENT_WIDTH = 10;
-    var SEGMENT_HEIGHT = 10;
-
-    function isWallCollision() {
-      if(snake[0].x < gamescreen.getBoundingClientRect().left
-        || gamescreen_width - snake[0].x < step
-        || snake[0].y < gamescreen.getBoundingClientRect().top
-        || gamescreen_height - snake[0].y < step) {
-          console.log(gamescreen_width - snake[0].x);
-          return true;
-        }
-        return false;
-    }
-
-    function isSelfCollision() {
-      var head = snake[0];
-      rect(head.x, head.y, SEGMENT_WIDTH, SEGMENT_HEIGHT);
-      var tail = snake.slice(1,snake.length);
-      for(i=0;i<tail.length;i++) {
-        if(tail[i].x === head.x && tail[i].y === head.y) {
-          return true;
-        }
-      }
-      return false;
-    }
-
-    function gameOver() {
-      clearInterval(interval_id);
-      console.log('You is dead! Size: ' + size);
-    }
-
-    function isAppleEaten() {
-      if (x === apple_position_x && y === apple_position_y) {
-        return true;
-      }
-      return false;
-    }
-
-    function moveSnake() {
-      snake.forEach(function(segment) {
-          rect(segment.x,segment.y,SEGMENT_WIDTH,SEGMENT_HEIGHT);
-        });
-
-      if(isAppleEaten()) {
-          size++;
-          init_apple();
-      } else {
-        snake.pop();
-      }
-    }
-
-    function init_apple() {
-      apple_position_x = getRandomInt(0,gamescreen_width);
-      apple_position_y = getRandomInt(0,gamescreen_height);
-    }
-
-    function checkDirection() {
-        switch(direction) {
-          case 'left':
-            x -= step;
-            break;
-          case 'up':
-            y -= step;
-            break;
-          case 'right':
-            x += step;
-            break;
-          case 'down':
-            y += step;
-            break;
-          default:
-            direction = 'up';
-            y -= step;
-        }
-    }
-
-    function onKeyDown(evt) {
-      switch(evt.keyCode) {
-        // left
-        case 37:
-          if(direction === 'right') break;
-          direction = 'left';
-          break;
-        // up
-        case 38:
-          if(direction === 'down') break;
-          direction = 'up';
-          break;
-        // right
-        case 39:
-          if(direction === 'left') return;
-          direction = 'right';
-          break;
-        // down
-        case 40:
-          if(direction === 'up') break;
-          direction = 'down';
-          break;
-      }
-    }
-
-    function clear() {
-      ctx.clearRect(0,0,gamescreen_width,gamescreen_height);
-    }
-
-    function rect(x,y,width,height) {
-      ctx.beginPath();
-      ctx.rect(x,y,width,height);
-      ctx.closePath();
-      ctx.fill();
-    }
-
-    function draw() {
-      run_count++;
-      if(LIMIT !== 0 && run_count > LIMIT) {
-        clearInterval(interval_id);
-      }
-      checkDirection()
-      snake.unshift({'x':x,'y':y});
-      if(isSelfCollision() || isWallCollision()) {
-        gameOver();
-      }
-      clear();
-      moveSnake();
-      rect(apple_position_x,apple_position_y,SEGMENT_WIDTH,SEGMENT_HEIGHT);
-    }
-
-    function getRandomInt(min, max) {
-      min = Math.ceil(min);
-      max = Math.floor(max);
-      return Math.floor(((Math.random() * (max - min +1)) + min)/10)*10;
-    }
-
-    function init() {
-      init_apple();
-      interval_id = setInterval(draw, 500);
-    }
-
-    document.addEventListener('keydown', onKeyDown);
-
-    init();
-  </script>
+    <div class="basicStyling" id="fullScreen">
+        <div class="centerArea">
+            <div>
+                <img src="/images/snakeWithApple.jpg" alt="Snake Picture">
+            </div>
+            <div class="centerArea" id="startTextField">
+                <h1>Welcome to Snake</h1>
+                <p>Press start to play!</p>
+                <a href="snakeGame.html">
+                    <button type="button" class="buttonStyle">Start</button>
+                </a>
+            </div>
+        </div>
+    </div>
 </body>
-
 </html>
