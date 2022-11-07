@@ -1,5 +1,4 @@
 let interval_id;
-let speed = 1000;
 
 let gamescreen = document.getElementById('gamescreen');
 const leftWall = 0;
@@ -88,19 +87,6 @@ function modalAppearanceGameOver() {
     }
 }
 
-function isAppleEaten() {
-    if (snakeSpawnX === apple_position_x && snakeSpawnY === apple_position_y) {
-        clearInterval(interval_id);
-        speed = speed - 2;
-        interval_id = setInterval(draw, speed);
-        if (speed <= 30) {
-            speed = 30;
-        }
-        return true;
-    }
-    return false;
-}
-
 function moveSnake() {
     snake.forEach(function (segment) {
         rectSnake(segment.x, segment.y, SEGMENT_WIDTH, SEGMENT_HEIGHT);
@@ -113,11 +99,6 @@ function moveSnake() {
         return;
     }
     snake.pop();
-}
-
-function init_apple() {
-    apple_position_x = getRandomInt(0, gamescreen_width);
-    apple_position_y = getRandomInt(0, gamescreen_height);
 }
 
 function checkDirection() {
@@ -167,10 +148,6 @@ function onKeyDown(evt) {
 
 function clear() {
     ctx.clearRect(-1, -1, gamescreen_width, gamescreen_height);
-}
-
-function rectApple(x, y, width, height) {
-    drawBox(x, y, width, height, "red");
 }
 
 function rectSnake(x, y, width, height) {

@@ -1,3 +1,5 @@
+let speed = 1000;
+
 gameDifficultyEasy.addEventListener('click', () => startGame('easy'), false);
 
 gameDifficultyMedium.addEventListener('click', () => startGame('medium'), false);
