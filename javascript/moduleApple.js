@@ -1,21 +1,23 @@
-function isAppleEaten() {
+import {gamescreen_width, gamescreen_height, drawBox} from "./snakeGame.js";
+import {snakeSpawnX, snakeSpawnY, speedUp, getRandomInt} from "./gameSetup.js";
+
+let apple_position_x;
+let apple_position_y;
+
+export function isAppleEaten() {
     if (snakeSpawnX === apple_position_x && snakeSpawnY === apple_position_y) {
-        clearInterval(interval_id);
-        speed = speed - 2;
-        interval_id = setInterval(draw, speed);
-        if (speed <= 30) {
-            speed = 30;
-        }
+        speedUp();
         return true;
     }
     return false;
 }
 
-function init_apple() {
+export function init_apple() {
     apple_position_x = getRandomInt(0, gamescreen_width);
     apple_position_y = getRandomInt(0, gamescreen_height);
 }
 
-function rectApple(x, y, width, height) {
-    drawBox(x, y, width, height, "red");
+export function rectApple(width, height) {
+    drawBox(apple_position_x, apple_position_y , width, height, "red");
 }
+
