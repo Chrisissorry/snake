@@ -20,6 +20,8 @@ h1 {
     height: 40px;
     color: black;
     font-weight: bold;
+    border-radius: 5px;
+    border-width: 1px;
 }
 #modalContent {
     background-color: #fefefe;

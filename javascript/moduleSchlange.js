@@ -1,4 +1,4 @@
-import {leftWall, topWall, step, SEGMENT_WIDTH, SEGMENT_HEIGHT, gamescreen_width, gamescreen_height, drawBox} from "./snakeGame.js";
+import { leftWall, topWall, SEGMENT_WIDTH, SEGMENT_HEIGHT, step, gamescreen_width, gamescreen_height, drawBox} from "./snakeGame.js";
 import {isAppleEaten, init_apple} from "./moduleApple.js";
 import {snakeSpawnX, snakeSpawnY} from "./gameSetup.js";
 
@@ -17,7 +17,7 @@ export function isSelfCollision() {
     let snakeTail = snake.slice(1, snakeSize);
     for (let segment = 0; segment < snakeTail.length; segment++) {
         if (snakeTail[segment].x === headSnake.x && snakeTail[segment].y === headSnake.y) {
-            deathReason[0] = 'You bit your own tail';
+            deathReason[0] = "You bit your own tail";
             return true;
         }
     }
@@ -29,7 +29,7 @@ export function isWallCollision() {
         || gamescreen_width - snake[0].x < step
         || snake[0].y < topWall
         || gamescreen_height - snake[0].y < step) {
-        deathReason[1] = 'You have collided with the wall';
+        deathReason[1] = "You have collided with the wall";
         return true;
     }
     return false;
@@ -55,5 +55,3 @@ function snakeElements() {
         rectSnake(segment.x, segment.y, SEGMENT_WIDTH, SEGMENT_HEIGHT);
     });
 }
-
-
