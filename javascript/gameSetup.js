@@ -1,6 +1,6 @@
 import {gamescreen_width, gamescreen_height, step, SEGMENT_WIDTH, SEGMENT_HEIGHT, hidingDifficultyLevels, modalAppearanceGameOver, clear} from "./snakeGame.js";
 import {init_apple, rectApple} from "./moduleApple.js";
-import {snakeStart, isWallCollision, isSelfCollision, moveSnake} from "./moduleSchlange.js";
+import {snakeStart, isWallCollision, isSelfCollision, moveSnake} from "./moduleSnake.js";
 
 let speed = 1000;
 let interval_id;
@@ -98,12 +98,6 @@ function onKeyDown(evt) {
             direction = 'down';
             break;
     }
-}
-
-export function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(((Math.random() * (max - min + 1)) + min) / 10) * 10;
 }
 
 function draw() {

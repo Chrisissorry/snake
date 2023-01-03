@@ -12,12 +12,6 @@ export function isAppleEaten() {
     return false;
 }
 
-export function init_apple() {
-    apple_position_x = getRandomInt(0, gamescreen_width);
-    apple_position_y = getRandomInt(0, gamescreen_height);
-}
-
 export function rectApple(width, height) {
-    drawBox(apple_position_x, apple_position_y , width, height, "red");
 }
 

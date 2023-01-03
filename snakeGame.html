@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="style.css">
   <title>Snake</title>
 </head>
-<body id="koerper">
+<body>
 <div class="basicStyling" id="fullScreen">
   <div id="endModal" class="basicStyling">
     <div class="centerArea" id="modalContent">
@@ -14,17 +14,24 @@
       <button type="button" id="closeButton" class="buttonStyle">Close</button>
     </div>
   </div>
-    <div id="difficulties">
-      <p>Select the Difficulty</p>
-      <button type="button" id="difficultyEasy" class="buttonStyle">Easy</button>
-      <button type="button" id="difficultyMedium" class="buttonStyle">Medium</button>
-      <button type="button" id="difficultyHard" class="buttonStyle">Hard</button>
-    </div>
-  <canvas id="gamescreen" width="1100" height="1100"></canvas>
- </div>
+  <div id="difficulties">
+    <p>Select the Difficulty</p>
+    <button type="button" id="difficultyEasy" class="buttonStyle">Easy</button>
+    <button type="button" id="difficultyMedium" class="buttonStyle">Medium</button>
+    <button type="button" id="difficultyHard" class="buttonStyle">Hard</button>
+  </div>
+  <div>
+    <canvas id="gamescreen" width="1000px" height="1000px"></canvas>
+  </div>
+  <div>
+    <button type="button" id="interactionButton" class="buttonStyle">Interaction</button>
+  </div>
+</div>
 
  <!--Ziel!!!-->
-  <script type="module" src="javascript/snakeGame.js"></script>
+<!--  <script type="module" src="javascript/snakeGame.js"></script>-->
+
+  <script src="script.js" type="module"></script>
 
   <!--<script src="javascript/snakeGame.js"></script>
   <script src="javascript/gameSetup.js"></script>

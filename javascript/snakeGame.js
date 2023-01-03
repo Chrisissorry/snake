@@ -1,4 +1,4 @@
-import {applesEaten, snakeSize, deathReason} from "./moduleSchlange.js";
+import {applesEaten, snakeSize, deathReason} from "./moduleSnake.js";
 
 export let hidingDifficultyLevels = document.getElementById("difficulties");
 let gamescreen = document.getElementById('gamescreen');
@@ -30,18 +30,6 @@ export function modalAppearanceGameOver() {
             window.location.reload();
         }, 5000)
     }
-}
-
-export function clear() {
-    ctx.clearRect(0, 0, gamescreen_width-10, gamescreen_height-10);
-}
-
-export function drawBox(x, y, width, height, color) {
-    ctx.beginPath();
-    ctx.fillStyle = color;
-    ctx.rect(x, y, width, height);
-    ctx.closePath();
-    ctx.fill();
 }
 
 function replayTimer() {
