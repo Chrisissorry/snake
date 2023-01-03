@@ -5,7 +5,7 @@ export function apple() {
     const SIZE = 10;
     clear();
 
-    function spawn(maxPositionX, maxPositionY) {
+    function spawnApple(maxPositionX, maxPositionY) {
         drawBox(
             getRandomInt(0, maxPositionX),
             getRandomInt(0, maxPositionY),
@@ -21,6 +21,6 @@ export function apple() {
         return Math.floor(((Math.random() * (max - min + 1)) + min) / 10) * 10;
     }
 
-    spawn(gameScreenWidth, gameScreenHeight);
+    spawnApple(gameScreenWidth, gameScreenHeight);
 }
 

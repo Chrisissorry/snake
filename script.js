@@ -1,4 +1,5 @@
 import {apple} from "./modules/apple.js";
+import {snake} from "./modules/snake.js";
 
 let gameScreen = document.getElementById('gamescreen');
 export let gameScreenHeight = gameScreen.height;
@@ -14,4 +15,5 @@ interactionButton.addEventListener('click', executeInteraction, false);
 
 function executeInteraction() {
     apple();
+    snake();
 }
