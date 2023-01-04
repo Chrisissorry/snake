@@ -1,16 +1,17 @@
-import {clear, drawBox} from "../javascript/utils.js";
+import * as config from "./config.js"
+import {drawBox} from "../javascript/utils.js";
 import {gameScreenWidth, gameScreenHeight} from "../script.js";
 
-export function apple() {
-    const SIZE = 10;
-    clear();
+export let applePositionX;
+export let applePositionY;
 
+export function apple() {
     function spawnApple(maxPositionX, maxPositionY) {
         drawBox(
-            getRandomInt(0, maxPositionX),
-            getRandomInt(0, maxPositionY),
-            SIZE,
-            SIZE,
+            applePositionX = getRandomInt(0, maxPositionX),
+            applePositionY = getRandomInt(0, maxPositionY),
+            config.SIZE,
+            config.SIZE,
             "red"
         );
     }
@@ -23,4 +24,3 @@ export function apple() {
 
     spawnApple(gameScreenWidth, gameScreenHeight);
 }
-

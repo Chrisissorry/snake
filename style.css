@@ -16,8 +16,8 @@ h1 {
     align-self: center;
 }
 .buttonStyle {
-    width: 100px;
-    height: 40px;
+    width: 200px;
+    height: 60px;
     color: black;
     font-weight: bold;
     border-radius: 5px;
@@ -90,4 +90,40 @@ p#modalText {
 }
 #difficulties {
     text-align: center;
+}
+.darkModeButtonArea {
+    display: flex;
+}
+.pictureArea {
+    align-self: inherit;
+    margin-left: 5%;
+}
+.buttonText{
+    text-align: center;
+    align-self: center;
+    margin-left: 15%;
+}
+#modeChangerPicture {
+    width: 30px;
+    height: 30px;
+}
+.buttons {
+    display: flex;
+    align-self: normal;
+    justify-content: space-around;
+}
+.buttonArea {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+#darkMode {
+    margin-left: 20px;
+}
+#interactionButton {
+    margin-right: 20px;
+}
+button:disabled{
+    background-color: lightgrey;
+    color: #848484;
 }
