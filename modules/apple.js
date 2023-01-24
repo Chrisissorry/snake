@@ -1,26 +1,31 @@
 import * as config from "./config.js"
-import {drawBox} from "../javascript/utils.js";
-import {gameScreenWidth, gameScreenHeight} from "../script.js";
+import {drawBox} from "../utils/utils.js";
 
-export let applePositionX;
-export let applePositionY;
-
-export function apple() {
-    function spawnApple(maxPositionX, maxPositionY) {
+export default class Apple {
+    constructor() {
+        this.positionX = 0;
+        this.positionY = 0;
+    }
+    spawn(maxPositionX, maxPositionY) {
         drawBox(
-            applePositionX = getRandomInt(0, maxPositionX),
-            applePositionY = getRandomInt(0, maxPositionY),
+            this.positionX = this.getRandomInt(0, maxPositionX),
+            this.positionY = this.getRandomInt(0, maxPositionY),
             config.SIZE,
             config.SIZE,
             "red"
         );
     }
 
-    function getRandomInt(min, max) {
+    getApplePosition() {
+        return {
+            x: this.positionX,
+            y: this.positionY
+        }
+    }
+
+    getRandomInt(min, max) {
         min = Math.ceil(min);
         max = Math.floor(max);
         return Math.floor(((Math.random() * (max - min + 1)) + min) / 10) * 10;
     }
-
-    spawnApple(gameScreenWidth, gameScreenHeight);
 }

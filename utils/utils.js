@@ -1,4 +1,4 @@
-import {gameScreenWidth, gameScreenHeight, ctx} from "../script.js";
+import {ctx} from "../script.js";
 
 export function drawBox(x, y, width, height, color) {
     ctx.beginPath();
