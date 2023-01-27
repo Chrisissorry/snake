@@ -3,20 +3,20 @@ import {drawBox} from "../utils/utils.js";
 
 export default class Snake {
     constructor() {
-        this.snakeSpawnX = 500;
-        this.snakeSpawnY = 500;
-        this.snake = [];
+        this.spawnX = 500;
+        this.spawnY = 500;
+        this.body = [];
         this.snakeSize = 1;
         this.appleCounter = 0;
         this.step = 10;
-        this.intervalID;
-        this.speed = 150;   
+        this.intervalID = undefined;
+        this.speed = 500;
     }
 
     spawn() {
         drawBox(
-            this.snakeSpawnX,
-            this.snakeSpawnY,
+            this.spawnX,
+            this.spawnY,
             config.SIZE,
             config.SIZE,
             "green"
@@ -24,7 +24,7 @@ export default class Snake {
     }
 
      move() {
-        this.snake.forEach(function (segment) {
+        this.body.forEach(function (segment) {
             drawBox(
                 segment.x,
                 segment.y,
@@ -34,7 +34,7 @@ export default class Snake {
             );
         });
 
-        //eatAppleFunction
-        snake.pop();
+        //TODO add eat apple function
+        this.body.pop();
     }
 }

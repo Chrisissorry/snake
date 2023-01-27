@@ -3,13 +3,15 @@ import {drawBox} from "../utils/utils.js";
 
 export default class Apple {
     constructor() {
+        this.maxPositionX = 1000;
+        this.maxPositionY = 1000;
         this.positionX = 0;
         this.positionY = 0;
     }
-    spawn(maxPositionX, maxPositionY) {
+    spawn() {
         drawBox(
-            this.positionX = this.getRandomInt(0, maxPositionX),
-            this.positionY = this.getRandomInt(0, maxPositionY),
+            this.positionX = this.getRandomInt(0, this.maxPositionX),
+            this.positionY = this.getRandomInt(0, this.maxPositionY),
             config.SIZE,
             config.SIZE,
             "red"

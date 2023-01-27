@@ -1,11 +1,6 @@
 import * as config from "./modules/config.js";
 import {getDarkMode} from "./modules/darkTheme.js";
-import Apple from "./modules/apple.js";
-
-let gameScreen = document.getElementById('gamescreen');
-let gameScreenHeight = gameScreen.height;
-let gameScreenWidth = gameScreen.width;
-export let ctx = gameScreen.getContext('2d');
+import {init} from "./utils/utils.js";
 
 let difficultyArea = document.getElementById('difficulties');
 
@@ -15,11 +10,10 @@ config.interactionButton.addEventListener('click', executeInteraction, false);
 
 config.darkModeButton.addEventListener('click', getDarkMode, false);
 
+
 function executeInteraction() {
     lockButtons();
-    const apple = new Apple();
-    apple.spawn(gameScreenWidth, gameScreenHeight);
-
+    init();
 }
 
 function lockButtons() {
