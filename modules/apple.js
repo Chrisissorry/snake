@@ -1,6 +1,9 @@
 import * as config from "./config.js"
 import {drawBox} from "../utils/utils.js";
 
+let showPositionX;
+let showPositionY;
+
 export default class Apple {
     constructor() {
         this.maxPositionX = 1000;
@@ -9,20 +12,18 @@ export default class Apple {
         this.positionY = 0;
     }
     spawn() {
-        drawBox(
-            this.positionX = this.getRandomInt(0, this.maxPositionX),
-            this.positionY = this.getRandomInt(0, this.maxPositionY),
-            config.SIZE,
-            config.SIZE,
-            "red"
-        );
+        showPositionX = this.getRandomInt(0, this.maxPositionX)
+        showPositionY = this.getRandomInt(0, this.maxPositionY)
     }
 
     getApplePosition() {
-        return {
-            x: this.positionX,
-            y: this.positionY
-        }
+        drawBox(
+            this.positionX = showPositionX,
+            this.positionY = showPositionY,
+            config.SIZE,
+            config.SIZE,
+            "red"
+        )
     }
 
     getRandomInt(min, max) {

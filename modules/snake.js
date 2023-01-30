@@ -1,5 +1,5 @@
 import * as config from "./config.js"
-import {drawBox} from "../utils/utils.js";
+import {clear, drawBox} from "../utils/utils.js";
 import Apple from "./apple.js";
 import {draw} from "../game.js";
 
@@ -7,28 +7,28 @@ const apple = new Apple();
 
 export default class Snake {
     constructor() {
-        this.spawnX = 500;
-        this.spawnY = 500;
-        this.body = [];
+        this.positionX = 500;
+        this.positionY = 500;
+        this.snakeBody = [];
         this.size = 1;
         this.appleCounter = 0;
         this.step = 10;
         this.intervalID = undefined;
-        this.speed = 500;
+        this.speed = 250;
     }
 
     spawn() {
         drawBox(
-            this.spawnX,
-            this.spawnY,
+            this.positionX,
+            this.positionY,
             config.SIZE,
             config.SIZE,
             "green"
         );
     }
 
-     move() {
-        this.body.forEach(function (segment) {
+     move(applePositionX, applePositionY) {
+        this.snakeBody.forEach(function (segment) {
             drawBox(
                 segment.x,
                 segment.y,
@@ -37,21 +37,22 @@ export default class Snake {
                 "green"
             );
         });
-        if (this.eat() === true){
+        if (this.eat(applePositionX, applePositionY) === true){
             this.size++;
             this.appleCounter++;
             apple.spawn();
+            return
         }
-        this.body.pop();
+        this.snakeBody.pop();
     }
 
-    eat() {
-        if (this.spawnX === apple.positionX && this.spawnY === apple.positionY) {
+    eat(applePositionX, applePositionY) {
+        if (this.positionX === applePositionX && this.positionY === applePositionY) {
             clearInterval(this.intervalID);
-            this.speed = this.speed - 5;
+            this.speed = this.speed - 2;
             this.intervalID = setInterval(draw, this.speed);
-            if (this.speed <= 30) {
-                this.speed = 30;
+            if (this.speed <= 50) {
+                this.speed = 50;
             }
             return true;
         }
