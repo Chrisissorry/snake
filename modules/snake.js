@@ -1,5 +1,5 @@
 import * as config from "./config.js"
-import {clear, drawBox} from "../utils/utils.js";
+import {drawBox} from "../utils/utils.js";
 import Apple from "./apple.js";
 import {draw} from "../game.js";
 

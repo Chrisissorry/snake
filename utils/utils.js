@@ -1,6 +1,6 @@
 let gameScreen = document.getElementById('gamescreen');
-let gameScreenHeight = gameScreen.height;
-let gameScreenWidth = gameScreen.width;
+export let gameScreenHeight = gameScreen.height;
+export let gameScreenWidth = gameScreen.width;
 let ctx = gameScreen.getContext('2d');
 
 export function drawBox(x, y, width, height, color) {
