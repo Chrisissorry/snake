@@ -16,28 +16,23 @@
     </div>
   </div>
   <div id="difficulties">
-    <p>Select the Difficulty</p>
+    <p class="difficultiesText">Select the Difficulty</p>
     <button type="button" id="difficultyEasy" class="buttonStyle">Easy</button>
     <button type="button" id="difficultyMedium" class="buttonStyle">Medium</button>
     <button type="button" id="difficultyHard" class="buttonStyle">Hard</button>
+    <button type="button" id="darkMode" class="buttonStyle">
+      <div class="darkModeButtonArea">
+        <div class="pictureArea">
+          <img src="images/nightmode.png" alt="Theme Picture" id="modeChangerPicture">
+        </div>
+        <div class="buttonText">
+          Dark-Mode
+        </div>
+      </div>
+    </button>
   </div>
   <div>
     <canvas id="gamescreen" width="1000px" height="1000px"></canvas>
-  </div>
-  <div class="buttonArea">
-    <div class="buttons">
-      <button type="button" id="interactionButton" class="buttonStyle">Interaction</button>
-      <button type="button" id="darkMode" class="buttonStyle">
-        <div class="darkModeButtonArea">
-          <div class="pictureArea">
-            <img src="images/nightmode.png" alt="Theme Picture" id="modeChangerPicture">
-          </div>
-          <div class="buttonText">
-            Dark-Mode
-          </div>
-        </div>
-      </button>
-    </div>
   </div>
 </div>
 <script src="game.js" type="module"></script>

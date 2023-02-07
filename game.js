@@ -4,7 +4,6 @@ import {clear, gameScreenWidth, gameScreenHeight, drawBox} from "./utils/utils.j
 import Apple from "./modules/apple.js";
 import Snake from "./modules/snake.js";
 
-let difficultyArea = document.getElementById('difficulties');
 let direction;
 let leftWall = 0;
 let topWall = 0;
@@ -12,20 +11,37 @@ let topWall = 0;
 const apple = new Apple();
 const snake = new Snake();
 
-difficultyArea.style.display = 'none';
-
-config.interactionButton.addEventListener('click', executeInteraction, false);
-
 config.darkModeButton.addEventListener('click', getDarkMode, false);
 
+config.difficultyEasy.addEventListener('click', () => startGame('easy'), false);
+config.difficultyMedium.addEventListener('click', () => startGame('medium'), false);
+config.difficultyHard.addEventListener('click', () => startGame('hard'), false);
 
-function executeInteraction() {
+function startGame(difficulty) {
+    switch (difficulty) {
+        case 'easy':
+            snake.speed = 200;
+            break;
+        case 'medium':
+            snake.speed = 130;
+            break;
+        case 'hard':
+            snake.speed = 80;
+            break;
+    }
     lockButtons();
+    hideButtonArea();
     init();
 }
 
 function lockButtons() {
-    config.interactionButton.setAttribute('disabled', 'disabled');
+    config.difficultyEasy.setAttribute('disabled', 'disabled');
+    config.difficultyMedium.setAttribute('disabled', 'disabled');
+    config.difficultyHard.setAttribute('disabled', 'disabled');
+}
+
+function hideButtonArea() {
+    config.difficultyArea.style.display = "none";
 }
 
 export function draw() {
