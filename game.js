@@ -7,12 +7,13 @@ import Snake from "./modules/snake.js";
 let direction;
 let leftWall = 0;
 let topWall = 0;
+let deathReason;
+let counterTimer = 5;
 
 const apple = new Apple();
 const snake = new Snake();
 
 config.darkModeButton.addEventListener('click', getDarkMode, false);
-
 config.difficultyEasy.addEventListener('click', () => startGame('easy'), false);
 config.difficultyMedium.addEventListener('click', () => startGame('medium'), false);
 config.difficultyHard.addEventListener('click', () => startGame('hard'), false);
@@ -67,7 +68,7 @@ function isWallCollision() {
         || gameScreenWidth - snake.snakeBody[0].x < snake.step
         || snake.snakeBody[0].y < topWall
         || gameScreenHeight - snake.snakeBody[0].y < snake.step) {
-        //deathReason = 'You have collided with the wall.'; //TODO make the text output when player is game over
+        deathReason = 'You have collided with the wall.';
         return true;
     }
     return false;
@@ -79,15 +80,42 @@ function isSelfCollision() {
     let tail = snake.snakeBody.slice(1, snake.snakeBody.length);
     for (let i = 0; i < tail.length; i++) {
         if (tail[i].x === head.x && tail[i].y === head.y) {
-            //deathReason = 'You bit your own tail.';   //TODO make the text output when player is game over
+            deathReason = 'You bit your own tail.';
             return true;
         }
     }
     return false;
 }
 
+function modalAppearance() {
+    config.modal.style.display = "flex";
+    config.modalText.innerHTML = "You Lost! You ate " + snake.appleCounter + " Apples. <br> The size of your snake was: " + snake.size + ".<br> You died because of: " + deathReason;
+    config.modalCloseButton.onclick = function () {
+        config.modal.style.display = "none";
+    }
+    config.modalResetButton.onclick = function () {
+        replayTimer();
+        setTimeout(function () {
+            window.location.reload();
+        }, 5000)
+    }
+}
+
 function gameOver() {
     clearInterval(snake.intervalID);
+    modalAppearance();
+}
+
+function replayTimer() {
+    while (counterTimer > 0) {
+        (function (counterTimer) {
+            let timeToReplay = 5;
+            setTimeout(function () {
+                let resultTimer = timeToReplay - counterTimer;
+                config.modalText.innerHTML = "Time before reset: " + resultTimer;
+            }, 1000 * counterTimer)
+        })(counterTimer--)
+    }
 }
 
 function checkDirection() {
