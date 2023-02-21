@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <link rel="icon" type="image/x-icon" href="images/snakeIcon.jpg">
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/x-icon" href="./images/Apple_JE3_BE3.webp">
   <title>Snake</title>
@@ -23,20 +24,20 @@
     <button type="button" id="difficultyEasy" class="buttonStyle">Easy</button>
     <button type="button" id="difficultyMedium" class="buttonStyle">Medium</button>
     <button type="button" id="difficultyHard" class="buttonStyle">Hard</button>
-    <button type="button" id="darkMode" class="buttonStyle">
-      <div class="darkModeButtonArea">
-        <div class="pictureArea">
-          <img src="images/nightmode.png" alt="Theme Picture" id="modeChangerPicture">
-        </div>
-        <div class="buttonText">
-          Dark-Mode
-        </div>
-      </div>
-    </button>
   </div>
   <div>
     <canvas id="gamescreen" width="1000px" height="1000px"></canvas>
   </div>
+  <button type="button" id="darkMode" class="buttonStyle">
+    <div class="darkModeButtonArea">
+      <div class="pictureArea">
+        <img src="images/nightmode.png" alt="Theme Picture" id="modeChangerPicture">
+      </div>
+      <div class="buttonText">
+        Dark-Mode
+      </div>
+    </div>
+  </button>
 </div>
 <script src="game.js" type="module"></script>
 </body>

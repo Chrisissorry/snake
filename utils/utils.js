@@ -7,6 +7,8 @@ export function drawBox(x, y, width, height, color) {
     ctx.beginPath();
     ctx.fillStyle = color;
     ctx.rect(x, y, width, height);
+    ctx.strokeStyle = "black";
+    ctx.strokeRect(x, y, width, height)
     ctx.closePath();
     ctx.fill();
 }

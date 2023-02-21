@@ -3,6 +3,7 @@ import {getDarkMode} from "./modules/darkTheme.js";
 import {clear, gameScreenWidth, gameScreenHeight, drawBox} from "./utils/utils.js";
 import Apple from "./modules/apple.js";
 import Snake from "./modules/snake.js";
+import Stats, {outputCounter, outputSize} from "./modules/stats.js";
 
 let direction;
 let leftWall = 0;
@@ -59,7 +60,7 @@ export function draw() {
 
 export function init() {
     apple.spawn()
-    snake.spawn();
+    snake.spawn(500, 500);
     snake.intervalID = setInterval(draw, snake.speed);
 }
 
@@ -88,8 +89,9 @@ function isSelfCollision() {
 }
 
 function modalAppearance() {
+    const stats = new Stats();
     config.modal.style.display = "flex";
-    config.modalText.innerHTML = "You Lost! You ate " + snake.appleCounter + " Apples. <br> The size of your snake was: " + snake.size + ".<br> You died because of: " + deathReason;
+    config.modalText.innerHTML = "You Lost! You ate " + outputSize + " Apples. <br> The size of your snake was: " + outputCounter + ".<br> You died because of: " + deathReason;
     config.modalCloseButton.onclick = function () {
         config.modal.style.display = "none";
     }
