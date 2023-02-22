@@ -2,26 +2,43 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/x-icon" href="images/snakeIcon.jpg">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/x-icon" href="./images/Apple_JE3_BE3.webp">
   <title>Snake</title>
 </head>
 <body>
 <div class="basicStyling" id="fullScreen">
   <div id="endModal" class="basicStyling">
     <div class="centerArea" id="modalContent">
-      <p id="modalText"></p>
-      <button type="reset" id="resetButton" class="buttonStyle">Play Again</button>
-      <button type="button" id="closeButton" class="buttonStyle">Close</button>
+      <h3 class="modalText">Gameover</h3>
+      <p class="modalText" id="deathText">Gameover</p>
+      <div>
+        <button type="reset" id="resetButton" class="buttonStyle">Play Again</button>
+        <button type="button" id="closeButton" class="buttonStyle">Close</button>
+      </div>
     </div>
   </div>
-    <div id="topSide">
-      <p>Select the Difficulty</p>
-      <button type="button" id="difficultyEasy" class="buttonStyle">Easy</button>
-      <button type="button" id="difficultyMedium" class="buttonStyle">Medium</button>
-      <button type="button" id="difficultyHard" class="buttonStyle">Hard</button>
-    </div>
-  <canvas id="gamescreen" width="1100" height="1100"></canvas>
+  <div id="difficulties">
+    <p class="difficultiesText">Select the Difficulty</p>
+    <button type="button" id="difficultyEasy" class="buttonStyle">Easy</button>
+    <button type="button" id="difficultyMedium" class="buttonStyle">Medium</button>
+    <button type="button" id="difficultyHard" class="buttonStyle">Hard</button>
   </div>
-  <script src="script.js"></script>
+  <div>
+    <canvas id="gamescreen" width="1000px" height="1000px"></canvas>
+  </div>
+  <button type="button" id="darkMode" class="buttonStyle">
+    <div class="darkModeButtonArea">
+      <div class="pictureArea">
+        <img src="images/nightmode.png" alt="Theme Picture" id="modeChangerPicture">
+      </div>
+      <div class="buttonText">
+        Dark-Mode
+      </div>
+    </div>
+  </button>
+</div>
+<script src="game.js" type="module"></script>
 </body>
 </html>
